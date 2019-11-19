@@ -6,7 +6,7 @@
 # This module is used for the recording of the constants used throughout the application
 
 # Value of the index number corresponding the name of a drone in file 
-name = 0
+Name = 0
 
 # Value of the index number corresponding the name of the operation zone in file
 OperationZone = 1
