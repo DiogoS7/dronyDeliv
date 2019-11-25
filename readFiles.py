@@ -4,6 +4,8 @@
 # 55375 Diogo Santos
 
 import constants
+import fnmatch
+import os
 
 
 def readHeader(file_name):
@@ -69,3 +71,17 @@ def parcelLister(file_name):
 
     inFile.close()
     return parcelList
+
+def fileFinder():
+    """
+    Given that the program is meant to simply be executed within the same directory as the drone and parcel files,
+    without having to be tampered with by the examining teachers, this function serves the purpose of finding those two files
+    and organizing them in a dictionary for ease of use. This function requires no input.
+    Returns: dictionary which includes the name of the drone file and the name of the name of the parcel file.
+    Usage: for intended use, "fileDict=fileFinder()" should be included in main file
+    """
+    fileDict= {}
+    fileDict["droneFile"] = (fnmatch.filter(os.listdir('.'), 'drones*.txt'))[0]
+    fileDict["parcelFile"] = (fnmatch.filter(os.listdir('.'), 'parcels*.txt'))[0]
+
+    return fileDict
