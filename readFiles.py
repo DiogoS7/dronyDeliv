@@ -63,9 +63,9 @@ def parcelLister(file_name):
 
     parcelList = []
 
-    for i in preparcelList: #for each element in predroneList (raw drone details in string class), processes it (stripping and splitting) and appends to final, curated, droneList
-        i = i.strip() #removes \n leftover from ending of lines in text file
-        parcelList.append(i.split(", ")) #appends every detail of the drone as a single element in the drone-specific sublist
+    for i in preparcelList: #for each element in preparcelList (raw parcel details in string class), processes it (stripping and splitting) and appends to final, curated, parcelList
+        i = i.strip() #removes \n leftover from ending of lines in text file, could be "i.replace("\n", "")"
+        parcelList.append(i.split(", ")) #appends every detail of the parcel as a single element in the parcel-specific sublist
 
     inFile.close()
     return parcelList
