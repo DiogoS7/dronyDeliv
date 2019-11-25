@@ -1,7 +1,9 @@
 # 2019-2020 Programação 1 (LTI)
 # Grupo 16
 # 55373 José Almeida
-# 55375 Diogo Santos 
+# 55375 Diogo Santos
+
+import constants
 
 
 def readHeader(file_name):
@@ -28,7 +30,7 @@ def droneLister(file_name):
     """ 
     Returns a list where each element is a list containing the details of one drone. 
     Requires: "file_name" argument to be a text file in the established format and to be within quotation marks
-    Ensures: a list with sublists containing the details of each drone separately. 
+    Ensures: a list with sublists containing the details of each drone in separate elements
     following the format: [[name_of_drone], [area_of_operation], [weight_capacity],
     [max_range], [distance_travelled], [autonomy], [date_of_availability], [hour_of
     _availability]]
@@ -45,3 +47,25 @@ def droneLister(file_name):
 
     inFile.close()
     return droneList
+
+def parcelLister(file_name):
+    """
+    Returns a lsit where each element is a list containing the details of one order. This function is identical to droneLister,
+    it was created for the sake of simplicity during further development.
+    Requires: "file_name" argument to be a text file in the established format and to be within quotation marks
+    Ensures: a list with sublists containing the details of each order in separate element
+    following the format: [[name_of_client], [area_of_delivery], [date_of_order], 
+    [hour_of_order], [distance_from_base], [parcel_weight]]
+    """
+    inFile = open(file_name, "r")
+    preparcelList = inFile.readlines() #separating function in an early list and a curated list for ease of understanding
+    preparcelList = preparcelList[7:] #avoidance of header lines
+
+    parcelList = []
+
+    for i in preparcelList: #for each element in predroneList (raw drone details in string class), processes it (stripping and splitting) and appends to final, curated, droneList
+        i = i.strip() #removes \n leftover from ending of lines in text file
+        parcelList.append(i.split(", ")) #appends every detail of the drone as a single element in the drone-specific sublist
+
+    inFile.close()
+    return parcelList
