@@ -35,7 +35,8 @@ def droneAssigner(drone_list, parcel):
     possible_drones = sorted(possible_drones, key=lambda possible_drones: possible_drones[c.AvailableHour]) #NON FUNCTIONAL TIME SORTER
     #print(possible_drones)
     if possible_drones[0][c.AvailableHour]==possible_drones[1][c.AvailableHour] and possible_drones[0][c.AvailableDate]==possible_drones[1][c.AvailableDate]: 
-        possible_drones = possible_drones[0] + possible_drones[1]
+        possible_drones = [possible_drones[0], possible_drones[1]]
+        # print(possible_drones)
         possible_drones = DroneAutonomySorter(possible_drones)
         if possible_drones[0][c.Autonomy]==possible_drones[1][c.Autonomy]:
             possible_drones = DroneAccumDistanceSorter(possible_drones)
