@@ -28,3 +28,24 @@ AvailableDate = 6
 
 # Value of the index number corresponding the hour when a deliver has been completed and the drone in list has returned to base
 AvailableHour = 7
+
+# Value of the index number corresponding the name of the client who ordered a certain parcel in list
+OrderName = 0
+
+# Value of the index number corresponding the zone of the client who ordered a certain parcel in list
+OrderZone = 1
+
+# Value of the index number corresponding the date when the parcel in list can be delivered
+OrderDate = 2
+
+# Value of the index number corresponding the hour when the parcel in list can be delivered
+OrderHour = 3
+
+# Value of the index number corresponding the distance from the parcel deliver location to the drone's base
+OrderDistance = 4
+
+# Value of the index number corresponding the weight of a certain parcel
+OrderWeight = 5
+
+# Value of the index number corresponding the time necessary for the deliver and return of the assigned drone
+OrderTime = 6

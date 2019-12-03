@@ -18,15 +18,21 @@ def time_sorter(values):
     time2 = values[1][7]
     time3 = values[2][7]
     time4 = values[3][7]
-    itime1 = datetime.datetime.strptime(str(time1), '%H:%M')
-    itime2 = datetime.datetime.strptime(str(time2), '%H:%M')
-    itime3 = datetime.datetime.strptime(str(time3), '%H:%M')
-    itime4 = datetime.datetime.strptime(str(time4), '%H:%M')
 
-    print(itime1, itime2, itime3, itime4)
+    #Falta perceber como fazer strip so ao tempo sem incluir data e segundos
+    time1 = datetime.datetime.strptime(str(time1), '%H:%M')
+    time2 = datetime.datetime.strptime(str(time2), '%H:%M')
+    time3 = datetime.datetime.strptime(str(time3), '%H:%M')
+    time4 = datetime.datetime.strptime(str(time4), '%H:%M')
 
-#droneList = open("droneList.txt")
-#values = list(droneList.readline())
+    if time1 < time2 and time1 < time3 and time1 < time4:
+        print(time1)
+    elif time2 < time1 and time2 < time3 and time2 < time4:
+        print(time2)
+    elif time3 < time1 and time3 < time2 and time3 < time4:
+        print(time3)
+    else:
+        print(time4)
 
 filedict = r.fileFinder()
 values = r.droneLister(filedict["droneFile"])
