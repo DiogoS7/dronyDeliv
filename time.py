@@ -4,30 +4,26 @@
 # 55375 Diogo Santos
 
 import constants
-import readFiles as r
 import datetime
 
-def time_compare(time1, time2):
+def time_sorter(values):
     """
-    Compares two time string arguments and returns whichever is earlier (smaller)
-    Requires: both time values to be in the format of a string 
-    Ensures: earliest of both time strings 
+    Receives a list with each index corresponding to a list of each drone's specifications
+    Requires: a txt file with a list of drones where each index corresponds to each drone's specifications
+    Ensures: a sorted list where the first index corresponds to whichever drone has an earlier time
     """
+        
+    time1 = values[0][7]
+    time2 = values[1][7]
+    time3 = values[2][7]
+    #itime1 = datetime.datetime.strptime(str(time1), '%H:%M')
+    #itime2 = datetime.datetime.strptime(str(time2), '%H:%M')
+    #itime3 = datetime.datetime.strptime(str(time3), '%H:%M')
+    print(time1, time2, time3)
 
-    time1 = datetime.datetime.strptime(str(time1), '%H:%M')
-    time2 = datetime.datetime.strptime(str(time2), '%H:%M')
+droneList = open("droneList.txt")
+values = list(droneList.read())
 
-    if time1.time() < time2.time():
+print(values[0])
 
-        return (str(time1.hour)+":"+str(time1.minute))
-    else:
-        return (str(time2.hour)+":"+str(time2.minute))
-
-fileDict = r.fileFinder()
-
-values = r.droneLister(fileDict["droneFile"])
-
-time1 = values[1][7]
-time2 = values[0][7]
-
-print(time_compare(time1, time2))
+#time_sorter(values)
