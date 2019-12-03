@@ -85,3 +85,10 @@ def fileFinder():
     fileDict["parcelFile"] = (fnmatch.filter(os.listdir('.'), 'parcels*.txt'))[0]
 
     return fileDict
+
+# fileDict = fileFinder()
+
+# print(fileDict)
+
+# caract = readHeader(fileDict["droneFile"])
+# print(caract[1])
