@@ -48,6 +48,6 @@ def droneAssigner(drone_list, parcel):
 fileDict = r.fileFinder()
 droneList = r.droneLister(fileDict["droneFile"])
 parcelList = r.parcelLister(fileDict["parcelFile"])
-parcel = parcelList[1]
+parcel = parcelList[4]
 print(droneAssigner(droneList, parcel))
 
