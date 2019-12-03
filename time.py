@@ -26,4 +26,4 @@ values = list(droneList.read())
 
 print(values[0])
 
-#time_sorter(values)
+time_sorter(values)
