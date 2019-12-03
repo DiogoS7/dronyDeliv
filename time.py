@@ -4,6 +4,7 @@
 # 55375 Diogo Santos
 
 import constants
+import readFiles as r
 import datetime
 
 def time_sorter(values):
@@ -16,14 +17,18 @@ def time_sorter(values):
     time1 = values[0][7]
     time2 = values[1][7]
     time3 = values[2][7]
-    #itime1 = datetime.datetime.strptime(str(time1), '%H:%M')
-    #itime2 = datetime.datetime.strptime(str(time2), '%H:%M')
-    #itime3 = datetime.datetime.strptime(str(time3), '%H:%M')
-    print(time1, time2, time3)
+    time4 = values[3][7]
+    itime1 = datetime.datetime.strptime(str(time1), '%H:%M')
+    itime2 = datetime.datetime.strptime(str(time2), '%H:%M')
+    itime3 = datetime.datetime.strptime(str(time3), '%H:%M')
+    itime4 = datetime.datetime.strptime(str(time4), '%H:%M')
 
-droneList = open("droneList.txt")
-values = list(droneList.read())
+    print(itime1, itime2, itime3, itime4)
 
-print(values[0])
+#droneList = open("droneList.txt")
+#values = list(droneList.readline())
+
+filedict = r.fileFinder()
+values = r.droneLister(filedict["droneFile"])
 
 time_sorter(values)
