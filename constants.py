@@ -48,4 +48,4 @@ OrderDistance = 4
 OrderWeight = 5
 
 # Value of the index number corresponding the time necessary for the deliver and return of the assigned drone
-OrderTime = 6
+OrderDuration = 6
