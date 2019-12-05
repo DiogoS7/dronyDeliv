@@ -49,3 +49,6 @@ OrderWeight = 5
 
 # Value of the index number corresponding the time necessary for the deliver and return of the assigned drone
 OrderDuration = 6
+
+# Value of the index number corresponding the position of time value in a list of each drone's specifications
+TimeIndex = 7
