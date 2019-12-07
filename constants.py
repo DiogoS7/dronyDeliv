@@ -3,7 +3,7 @@
 # 55375 Diogo Santos
 # 55373 José Almeida
 
-# This module is used for the recording of the constants used throughout the application
+# This module is used for the recording of constants used throughout the application
 
 # Value of the index number corresponding the name of a drone in list 
 Name = 0
