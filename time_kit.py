@@ -4,6 +4,7 @@
 # 55375 Diogo Santos
 
 import datetime
+import constants as c
 
 def time_sorter(droneListUnsorted):
     """
@@ -12,7 +13,7 @@ def time_sorter(droneListUnsorted):
     Ensures: a sorted list where the first index corresponds to whichever drone has ready first
     """
     
-    droneListSorted = sorted(droneListUnsorted, key=lambda x: datetime.datetime.strptime(x[7], '%H:%M'))
+    droneListSorted = sorted(droneListUnsorted, key=lambda x: datetime.datetime.strptime(x[c.AvailableHour], '%H:%M'))
 
     return droneListSorted
 
