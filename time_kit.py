@@ -3,6 +3,8 @@
 # 55373 José Almeida
 # 55375 Diogo Santos
 
+# This module is named "time_kit" because the name "time" interfered with standard time module in python library
+
 import datetime
 import constants as c
 
