@@ -16,4 +16,20 @@ def time_sorter(droneListUnsorted):
 
     return droneListSorted
 
+def time_update(time_string, time_value):
+    """
+    Receives a string with the value of time and a value which will increment time
+    Requires: time value in the format of a string and a integer value to increment 
+    Ensures: time value now incremented based on value given
+    """
+
+    time_to_update = datetime.datetime.strptime(str(time_string), '%H:%M')
+
+    time_updated = time_to_update + datetime.timedelta(minutes=time_value)
+
+    time_updated = str(time_updated)
+
+    time_updated = time_updated[11:16]
+
+    return time_updated
 
