@@ -30,12 +30,16 @@ def droneAssigner(drone_list, parcel_list):
     used_drones = []
     for parcel in parcel_list:
         for drone in drone_list:
+            # if parcel[c.OperationZone] in drone:
+            #     print(parcel[c.OperationZone]) #testing lines
+            #     print(drone)
+            #     input()
             if parcel[c.OperationZone] in drone and int(drone[c.MaxDistance])>=int(parcel[c.OrderDistance]) and int(drone[c.Autonomy])>=int(parcel[c.OrderDistance])*2/1000 and int(drone[c.MaxWeight])>=int(parcel[c.OrderWeight]) and (drone not in used_drones):
                 possible_drones.append(drone)
         if len(possible_drones)==0:
             DroneParcelCombo[parcel[c.OrderName]] = [parcel, "Cancelled"]
             continue
-        elif len(possible_drones)==1:
+        if len(possible_drones)==1:
             DroneParcelCombo[parcel[c.OrderName]] = [parcel, possible_drones[0]]
             used_drones.append(possible_drones[0])
             continue
