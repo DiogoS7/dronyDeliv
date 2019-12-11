@@ -1,0 +1,16 @@
+Time:
+11h00
+Day:
+5-11-2019
+Company:
+iXicoZe
+Parcels:
+Daenerys Targaryen, lumiar, 2019-11-05, 11:00, 900, 15, 20
+John Snow, lumiar, 2019-11-05, 11:05, 1200, 10, 30
+Arya Stark, alvalade, 2019-11-05, 11:05, 1700, 15, 25
+Bran Stark, alvalade,  2019-11-05, 11:10, 1200, 20, 30
+Robert Baratheon, ameixoeira, 2019-11-05, 11:15, 800, 2, 10
+Stannis Baratheon, ameixoeira, 2019-11-05, 11:15, 1000, 3, 10
+Randyll Tarly, carnide, 2019-11-05, 11:20, 800, 2, 10
+Samwell Tarly, carnide, 2019-11-05, 11:20, 1000, 3, 10
+Tyrion Lannister, telheiras,  2019-11-05, 11:30, 1000, 25, 30

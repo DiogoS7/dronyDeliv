@@ -8,16 +8,18 @@
 import datetime
 import constants as c
 
-def time_sorter(droneListUnsorted):
+def time_difference(time1, time2):
     """
-    Receives a list with each index corresponding to a list of each drone's specifications
-    Requires: a txt file with a list of drones where each index corresponds to each drone's specifications
-    Ensures: a sorted list where the first index corresponds to whichever drone has ready first
+    2 strings in : format
     """
-    
-    droneListSorted = sorted(droneListUnsorted, key=lambda x: datetime.datetime.strptime(x[c.AvailableHour], '%H:%M'))
+    time1 = datetime.datetime.strptime(str(time1), '%H:%M')
+    time2 = datetime.datetime.strptime(str(time2), '%H:%M')
 
-    return droneListSorted
+    time_difference = max(time1, time2) - min(time1, time2)
+
+    return str(time_difference)[2:4]
+
+
 
 def time_update(time_string, time_value):
     """
@@ -25,6 +27,7 @@ def time_update(time_string, time_value):
     Requires: time value in the format of a string and a integer value to increment 
     Ensures: time value now incremented based on value given
     """
+    time_value = int(time_value)
 
     time_to_update = datetime.datetime.strptime(str(time_string), '%H:%M')
 
@@ -36,7 +39,7 @@ def time_update(time_string, time_value):
 
     return time_updated
 
-def time_comparator(time1, time2):
+def timeMax(time1, time2):
     """
     ~~~~~ strings must be in format %H:%M
     """
