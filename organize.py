@@ -3,10 +3,17 @@
 # 55373 José Almeida
 # 55375 Diogo Santos
 
-from __future__ import absolute_import
 import time_kit as t
 import constants as c
 import readFiles as r
+import operator as o
+import time
+import datetime
+
+def timesort(x):
+    for y in x:
+        time_stamp = datetime.datetime.strptime(y[c.AvailableHour], '%H:%M')
+        return time_stamp
 
 def DroneAutonomySorter(list):
     list = sorted(list, reverse=True, key=lambda list: list[c.Autonomy])
@@ -20,60 +27,44 @@ def DroneNameSorter(list):
     list = sorted(list, key=lambda list: list[c.Name])
     return list
 
-def PossibleDroneLister(drone_list, parcel, used_drones):
-    """
-
-    """
-    possible_drones = []
-    for drone in drone_list:
-        if parcel[c.OperationZone] in drone and int(drone[c.MaxDistance])>=int(parcel[c.OrderDistance]) and int(drone[c.Autonomy])>=int(parcel[c.OrderDistance])*2/1000 and int(drone[c.MaxWeight])>=int(parcel[c.OrderWeight]) and (drone not in used_drones): #and time is earlier than parceltime
-                possible_drones.append(drone)
-    return possible_drones
-
-
 def droneAssigner(drone_list, parcel_list):
     """
     
     """
 
-    possible_drones_new = []
     DroneParcelCombo = {}
-    used_drones = []
-    possible_drones = []
+
     for parcel in parcel_list:
-        if parcel==parcel_list[2]:
-            for drone in drone_list:
-                if parcel[c.OperationZone] in drone and int(drone[c.MaxDistance])>=int(parcel[c.OrderDistance]) and int(drone[c.Autonomy])>=int(parcel[c.OrderDistance])*2/1000 and int(drone[c.MaxWeight])>=int(parcel[c.OrderWeight]) and (drone not in used_drones): #and time is earlier than parceltime
-                    possible_drones.append(drone)
-            #possible_drones = PossibleDroneLister(drone_list, parcel, used_drones)
-            print(possible_drones)
-            print("aqui")
-            if len(possible_drones)==0:
-                DroneParcelCombo[parcel[c.OrderName]] = [parcel, "Cancelled"]
-                continue
-            if len(possible_drones)==1:
-                DroneParcelCombo[parcel[c.OrderName]] = [parcel, possible_drones[0]]
-                used_drones.append(possible_drones[0])
-                continue
-            possible_drones = t.time_sorter(possible_drones) 
-            if possible_drones[0][c.AvailableHour]==possible_drones[1][c.AvailableHour] and possible_drones[0][c.AvailableDate]==possible_drones[1][c.AvailableDate]:
-                for drone in possible_drones:
-                    if drone[c.AvailableHour]==possible_drones[0][c.AvailableHour]:
-                        possible_drones_new.append(drone)
-                possible_drones = possible_drones_new 
-                possible_drones = DroneAutonomySorter(possible_drones)
-                if possible_drones[0][c.Autonomy]==possible_drones[1][c.Autonomy]:
-                    possible_drones = DroneAccumDistanceSorter(possible_drones)
-                    if possible_drones[0][c.AccumDistance]==possible_drones[1][c.AccumDistance]:
-                        possible_drones = DroneNameSorter(possible_drones)
-            right_drone = possible_drones[0]
-            DroneParcelCombo[parcel[c.OrderName]] = [parcel, right_drone]
-            used_drones.append(right_drone)
-    return DroneParcelCombo 
+        # drone_list.sort(key=o.itemgetter(parcel[c.OrderZone], t.time_sorter, c.Autonomy, c.AccumDistance, c.Name))
+        print(parcel)
+
+        #drone_list = t.time_sorter(drone_list)
+        #drone_list.sort(key= lambda drone: (drone[c.OperationZone]!=parcel[c.OrderZone]))   
+        drone_list.sort(key=lambda k: (k[1] != parcel[c.OrderZone], datetime.datetime.strptime(k[c.AvailableHour], '%H:%M'), datetime.datetime.strptime(k[c.AvailableHour], '%H:%M'), -int(k[c.Autonomy]), int(k[c.AccumDistance]), k(c.Name))) # SORT OUT THE NAME AND IT'S DONE
+        
+        #drone_list.sort(key= lambda x:(-int(x[c.Autonomy]), -int(x[c.AccumDistance]), x[c.Name]))
+        
+        print(drone_list)
+        input()
+        
+        right_drone = drone_list[0]
+        
+        if right_drone[c.MaxDistance]<parcel[c.OrderDistance] or float(right_drone[c.Autonomy])<(int(parcel[c.OrderDistance])*2/1000) or right_drone[c.MaxWeight]<parcel[c.OrderWeight]:
+            DroneParcelCombo[parcel[c.OrderName]] = [parcel, "Cancelled"]
+        else:
+            DroneParcelCombo[parcel[c.OrderName]] = [parcel, right_drone[c.Name]]
+            right_drone[c.AvailableHour] = t.time_comparator(right_drone[c.AvailableHour], parcel[c.OrderHour])
+            right_drone[c.Autonomy] = int(right_drone[c.Autonomy]) - (int(parcel[c.OrderDistance])*2)/1000
+            right_drone[c.AccumDistance] = right_drone[c.AccumDistance] + parcel[c.OrderDistance]*2
+            drone_list[0] = right_drone
+
+    return None #DroneParcelCombo 
+
 
 
 fileDict = r.fileFinder()
 droneList = r.droneLister(fileDict["droneFile"])
 parcelList = r.parcelLister(fileDict["parcelFile"])
-print(droneAssigner(droneList, parcelList))
 
+#droneList.sort(key = lambda x:(x[c.OperationZone], x[c.AvailableHour], -x[c.Autonomy], -x[c.AccumDistance], x[c.Name]))
+print(droneAssigner(droneList, parcelList))
