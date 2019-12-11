@@ -72,7 +72,7 @@ def parcelLister(file_name):
     inFile.close()
     return parcelList
 
-def fileFinder():
+def fileFinder(sysarg1, sysarg2):
     """
     Given that the program is meant to simply be executed within the same directory as the drone and parcel files,
     without having to be tampered with by the examining teachers, this function serves the purpose of finding those two files
@@ -81,8 +81,8 @@ def fileFinder():
     Usage: for intended use, "fileDict=fileFinder()" should be included in main file
     """
     fileDict= {}
-    fileDict["droneFile"] = (fnmatch.filter(os.listdir('.'), 'drones*.txt'))[0]
-    fileDict["parcelFile"] = (fnmatch.filter(os.listdir('.'), 'parcels*.txt'))[0]
+    fileDict["droneFile"] = sysarg1
+    fileDict["parcelFile"] = sysarg2
 
     return fileDict
 
