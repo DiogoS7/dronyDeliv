@@ -51,10 +51,12 @@ def droneAssigner(drone_list, parcel_list):
         possible1 = drone_list[0][:]
         possible2 = drone_list[1][:]
         possible3 = drone_list[2][:]
+
+       
         
-        if possible1[c.OperationZone]!=parcel[c.OrderZone] or int(possible1[c.MaxDistance])<int(parcel[c.OrderDistance]) or float(possible1[c.Autonomy])<(int(parcel[c.OrderDistance])*2/1000) or int(possible1[c.MaxWeight])<int(parcel[c.OrderWeight]):
-            if possible2[c.OperationZone]!=parcel[c.OrderZone] or possible2[c.MaxDistance]<parcel[c.OrderDistance] or float(possible2[c.Autonomy])<(int(parcel[c.OrderDistance])*2/1000) or possible2[c.MaxWeight]<parcel[c.OrderWeight]:
-                if possible3[c.OperationZone]!=parcel[c.OrderZone] or possible3[c.MaxDistance]<parcel[c.OrderDistance] or float(possible3[c.Autonomy])<(int(parcel[c.OrderDistance])*2/1000) or possible3[c.MaxWeight]<parcel[c.OrderWeight]:
+        if possible1[c.OperationZone]!=parcel[c.OrderZone] or float(possible1[c.MaxDistance])<int(parcel[c.OrderDistance]) or float(possible1[c.Autonomy])<(float(parcel[c.OrderDistance])*2/1000) or float(possible1[c.MaxWeight])<float(parcel[c.OrderWeight]):
+            if possible2[c.OperationZone]!=parcel[c.OrderZone] or float(possible2[c.MaxDistance])<float(parcel[c.OrderDistance]) or float(possible2[c.Autonomy])<(float(parcel[c.OrderDistance])*2/1000) or float(possible2[c.MaxWeight])<float(parcel[c.OrderWeight]):
+                if possible3[c.OperationZone]!=parcel[c.OrderZone] or float(possible3[c.MaxDistance])<float(parcel[c.OrderDistance]) or float(possible3[c.Autonomy])<(float(parcel[c.OrderDistance])*2/1000) or float(possible3[c.MaxWeight])<float(parcel[c.OrderWeight]):
                     DroneParcelCombo[parcel[c.OrderName]] = [parcel, "Cancelled"]
                     continue
                 else:
@@ -65,8 +67,8 @@ def droneAssigner(drone_list, parcel_list):
             right_drone = possible1
     
         
-        right_drone[c.Autonomy] = float(right_drone[c.Autonomy]) - (float(parcel[c.OrderDistance])*2)/1000
-        right_drone[c.AccumDistance] = float(right_drone[c.AccumDistance]) + float(parcel[c.OrderDistance])*2/1000
+        right_drone[c.Autonomy] = round((float(right_drone[c.Autonomy]) - (float(parcel[c.OrderDistance])*2)/1000), 1)
+        right_drone[c.AccumDistance] = round((float(right_drone[c.AccumDistance]) + float(parcel[c.OrderDistance])*2/1000), 1)
         right_drone[c.AvailableHour] = t.time_update(t.timeMax(right_drone[c.AvailableHour], parcel[c.OrderHour]), parcel[c.OrderDuration])
         
         # right_drone[c.AvailableHour] aquela cena das 8 horas
