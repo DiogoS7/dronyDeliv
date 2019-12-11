@@ -36,3 +36,13 @@ def time_update(time_string, time_value):
 
     return time_updated
 
+def time_comparator(time1, time2):
+    """
+    ~~~~~ strings must be in format %H:%M
+    """
+    time1 = datetime.datetime.strptime(time1, '%H:%M')
+    time2 = datetime.datetime.strptime(time2, '%H:%M')
+    latter = max((time1, time2))
+    latter = str(latter)[11:16]
+
+    return latter
