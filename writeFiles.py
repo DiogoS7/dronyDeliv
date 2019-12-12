@@ -8,10 +8,12 @@ import constants as c
 import readFiles as r
 import time_kit as t
 import sys ###TESTING
+from pprint import pprint ###TESTING
+import datetime
 
 
 
-def droneFileMaker(fileDict):    ############ TEST THIS
+def droneFileMaker(fileDict):
     """
     Creates new file and returns it's name
     """
@@ -82,12 +84,7 @@ def timetableFileMaker(fileDict):
 
     return updatedFileName
 
-############################### TESTING CRAP
-if __name__ == "__main__":         
-    arg1 = str(sys.argv[1])
-    arg2 = str(sys.argv[2])
-    fileDict = r.fileFinder(arg1, arg2)
-###############################
+
 
 def headerWriter(newFileType, fileDict, newFileName):
     """
@@ -118,27 +115,44 @@ def headerWriter(newFileType, fileDict, newFileName):
         newFile.write("Timeline:\n")
     newFile.close()
 
-
-
-headerWriter("Timetable", fileDict, timetableFileMaker(fileDict))
-headerWriter("Drones", fileDict, droneFileMaker(fileDict))
-
-
-    
-    
-    
-    
-    
-
-    
-    
-
-
-def newDroneFileWriter(DroneParcelCombo, newDroneFileName): ########## UNFINISHED
+def droneWriter(droneAssignerTuple, newFileName):
     """
-    receives updated DroneAssigner() dictionary and droneFileMaker() new file name
+    writes body of new dronefile based on results from o.DroneAssigner()
     """
+    
+    DroneParcelCombo = droneAssignerTuple[0]
+    UnassignedDrones = droneAssignerTuple[2]
+    
+    
+    
+    droneFile = open(newFileName, "a")
 
-########### IF LEN(DAY)=.... IF LEN(DAY)=...+1 (5/05)
+    valueList = list(DroneParcelCombo.values())
+    assignedDrones = [item[c.DroneInCombo] for item in valueList]
+    allDrones = assignedDrones + UnassignedDrones
+    allDrones.sort(key=lambda k: (datetime.datetime.strptime(k[c.AvailableDate], '%Y-%M-%d'), datetime.datetime.strptime(k[c.AvailableHour], '%H:%M'), -float(k[c.Autonomy]), k[c.Name]))
+    allDrones.reverse()
+    allDrones = o.duplicateRemover(allDrones)
+    allDrones.reverse() 
+    
+
+
+    for drone in allDrones:
+        droneString = str(drone)
+        droneString = droneString.replace("[","")
+        droneString = droneString.replace("'","")
+        droneString = droneString.replace("]","")
+        droneFile.write(droneString + "\n")
+
+    droneFile.close()
+
+    return 
+
+
+
+
+droneWriter(o.droneAssigner(droneList, parcelList), "drones20h00_2019y11m5.txt")
+
+
     
 

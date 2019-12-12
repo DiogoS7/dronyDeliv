@@ -12,22 +12,9 @@ import datetime
 import sys
 from pprint import pprint #testing
 
-def duplicateRemover(list):
-    """
-    helper function for writeFiles.droneWriter()
-    """
-    unique_list = []
-    unique_name_list = []
-    for elem in list:
-        if elem[c.Name] not in unique_name_list:
-            unique_list.append(elem)
-            unique_name_list.append(elem[c.Name])
-    return unique_list
-
-
 def DroneRemover(name, droneList):
     for drone in droneList:
-        if drone[c.Name]==name:
+        if drone[0]==name:
             droneList.remove(drone)
     return droneList
 
@@ -36,12 +23,8 @@ def droneAssigner(drone_list, parcel_list):
     """
     
     """
-    unassigned_counter = 1
+
     DroneParcelCombo = {}
-    CancelledOrders = []
-    original_drone_list = drone_list[:]
-    used_drones = []
-    UnassignedDrones = []
 
     for parcel in parcel_list:
       
@@ -58,7 +41,7 @@ def droneAssigner(drone_list, parcel_list):
         if possible1[c.OperationZone]!=parcel[c.OrderZone] or float(possible1[c.MaxDistance])<int(parcel[c.OrderDistance]) or float(possible1[c.Autonomy])<(float(parcel[c.OrderDistance])*2/1000) or float(possible1[c.MaxWeight])<float(parcel[c.OrderWeight]):
             if possible2[c.OperationZone]!=parcel[c.OrderZone] or float(possible2[c.MaxDistance])<float(parcel[c.OrderDistance]) or float(possible2[c.Autonomy])<(float(parcel[c.OrderDistance])*2/1000) or float(possible2[c.MaxWeight])<float(parcel[c.OrderWeight]):
                 if possible3[c.OperationZone]!=parcel[c.OrderZone] or float(possible3[c.MaxDistance])<float(parcel[c.OrderDistance]) or float(possible3[c.Autonomy])<(float(parcel[c.OrderDistance])*2/1000) or float(possible3[c.MaxWeight])<float(parcel[c.OrderWeight]):
-                    CancelledOrders.append(parcel)
+                    DroneParcelCombo[parcel[c.OrderName]] = [parcel, "Cancelled"]
                     continue
                 else:
                     right_drone = possible3
@@ -73,23 +56,18 @@ def droneAssigner(drone_list, parcel_list):
         right_drone[c.AvailableHour] = t.time_update(t.timeMax(right_drone[c.AvailableHour], parcel[c.OrderHour]), parcel[c.OrderDuration])
         if t.timestampConverter(right_drone[c.AvailableHour])>t.timestampConverter("20:00"):
             right_drone[c.AvailableHour] = t.time_update("08:00", parcel[c.OrderDuration])
-            right_drone[c.AvailableDate] = t.drone_date_update(parcel[c.OrderDate])
-        
-        
+            right_drone[c.AvailableDate] = t.drone_date_update(parcel[c.OrderDate][1:])
         
         DroneRemover(right_drone[c.Name], drone_list)
         drone_list.append(right_drone)
-        used_drones.append(right_drone[c.Name])
         DroneParcelCombo[parcel[c.OrderName]] = [parcel, right_drone]
-        
-    for original_drone in original_drone_list:
-        if original_drone[c.Name] not in used_drones:
-            UnassignedDrones.append(original_drone)
+
     
-    return (DroneParcelCombo, CancelledOrders, UnassignedDrones)
+    return DroneParcelCombo
 
 
 ################################### TESTING CRAP
+
 # if __name__ == "__main__":         
 #     arg1 = str(sys.argv[1])
 #     arg2 = str(sys.argv[2])
