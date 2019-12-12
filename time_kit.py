@@ -65,7 +65,9 @@ def drone_date_update(date_string, days_value = 1):
 
     """
     days_value = int(days_value)
-    
+
+    date_string = date_string.replace(" ","")
+
     date_to_update = datetime.datetime.strptime(str(date_string), '%Y-%M-%d')
 
     date_updated = date_to_update + datetime.timedelta(days=days_value)
@@ -118,3 +120,21 @@ def timeMax(time1, time2):
     latter = str(latter)[11:16]
 
     return latter
+
+def timeMin(time1, time2):
+    """
+    ~~~~~ strings must be in format %H:%M
+    """
+    time1 = datetime.datetime.strptime(time1, '%H:%M')
+    time2 = datetime.datetime.strptime(time2, '%H:%M')
+    latter = min((time1, time2))
+    latter = str(latter)[11:16]
+
+    return latter
+
+def DuplicateDroneSorter(duplicateDroneList):
+    """
+    helper function for droneWriter(), orders drones in order to remove the deprecated one from the list before printing
+    """
+    duplicateDroneList.sort(key=lambda k: (datetime.datetime.strptime(k[c.AvailableDate], '%Y-%M-%d'), datetime.datetime.strptime(k[c.AvailableHour], '%H:%M')))
+    return duplicateDroneList
