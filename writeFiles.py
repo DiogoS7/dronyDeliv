@@ -94,8 +94,10 @@ def headerWriter(newFileType, fileDict, newFileName):
     originalFile = fileDict["droneFile"]
     date = r.readHeader(originalFile)[c.headerDate]
     time = r.readHeader(originalFile)[c.headerTime]
+    updatedTime = time
     company = r.readHeader(originalFile)[c.headerCompany]
-    updatedTime = str(t.FileNameTimeUpdate(time, 30))
+    if newFileType=="Drones":
+        updatedTime = str(t.FileNameTimeUpdate(time, 30))
     
     if t.FileNameTimestampConverter(updatedTime)>t.FileNameTimestampConverter("23h59"):
         updatedDate = t.FileNameDateUpdate(date)
@@ -148,10 +150,12 @@ def droneWriter(droneAssignerTuple, newFileName):
 
     return 
 
-
+def timetableWriter(droneAssignerTuple, newFileName):
+    
 
 
 droneWriter(o.droneAssigner(droneList, parcelList), "drones20h00_2019y11m5.txt")
+droneWriter(o.droneAssigner(droneList, parcelList), "timetable19:30_2019y11m5.txt")
 
 
     
