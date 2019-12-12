@@ -24,10 +24,11 @@ def readHeader(file_name):
     date = inFile.readline().replace("\n", "")
     inFile.readline() 
     company = inFile.readline().replace("\n", "") 
+    scope = inFile.readline().replace("\n","").replace(":","")
 
     inFile.close()
     
-    return (date, time, company)
+    return (date, time, company, scope)
  
 def droneLister(file_name):
     """ 

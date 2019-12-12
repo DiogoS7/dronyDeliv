@@ -12,6 +12,7 @@ Name = 0
 headerDate = 0
 headerTime = 1
 headerCompany = 2 
+headerScope = 3
 
 # Value of the index number corresponding to the name of the operation zone in list
 OperationZone = 1
