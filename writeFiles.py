@@ -120,8 +120,8 @@ def headerWriter(newFileType, fileDict, newFileName):
 
 
 
-# headerWriter("Timetable", fileDict, timetableFileMaker(fileDict))
-# headerWriter("Drones", fileDict, droneFileMaker(fileDict))
+headerWriter("Timetable", fileDict, timetableFileMaker(fileDict))
+headerWriter("Drones", fileDict, droneFileMaker(fileDict))
 
 
     
@@ -134,7 +134,7 @@ def headerWriter(newFileType, fileDict, newFileName):
     
 
 
-def newDroneFileWriter(DroneParcelCombo, newDroneFileName):
+def newDroneFileWriter(DroneParcelCombo, newDroneFileName): ########## UNFINISHED
     """
     receives updated DroneAssigner() dictionary and droneFileMaker() new file name
     """
