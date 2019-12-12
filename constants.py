@@ -8,6 +8,10 @@
 # Value of the index number corresponding the name of a drone in list 
 Name = 0
 
+headerTime = 0
+headerDay = 1
+headerCompany = 2 
+
 # Value of the index number corresponding the name of the operation zone in list
 OperationZone = 1
 

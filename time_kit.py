@@ -41,10 +41,68 @@ def time_update(time_string, time_value):
 
     return time_updated
 
+def FileNameTimeUpdate(time_string, time_value):
+    """
+    Receives a string with the value of time and a value which will increment time
+    Requires: time value in the format of a string and a integer value to increment 
+    Ensures: time value now incremented based on value given 
+    """    ################ EDIT BECAUSE FORMAT IS h AND NOT : LIKE TIME_UPDATE
+    time_value = int(time_value)
+
+    time_to_update = datetime.datetime.strptime(str(time_string), '%Hh%M')
+
+    time_updated = time_to_update + datetime.timedelta(minutes=time_value)
+
+    time_updated = str(time_updated)
+
+    time_updated = time_updated[11:16]
+
+
+    return time_updated
+
+def drone_date_update(date_string, days_value = 1):
+    """
+
+    """
+    days_value = int(days_value)
+    
+    date_to_update = datetime.datetime.strptime(str(date_string), '%Y-%M-%d')
+
+    date_updated = date_to_update + datetime.timedelta(days=days_value)
+
+    date_updated = str(date_updated)
+
+    date_updated = date_updated[:10]
+
+    return date_updated
+    
+def FileNameDateUpdate(date_string, days_value = 1):
+    """
+
+    """
+    days_value = int(days_value)
+    
+    date_to_update = datetime.datetime.strptime(str(date_string), '%d-%M-%Y')
+
+    date_updated = date_to_update + datetime.timedelta(days=days_value)
+
+    date_updated = str(date_updated)
+
+    date_updated = date_updated[:10]
+
+    return date_updated
+
 def timestampConverter(timestamp_string):
     """
     """
     timestamp_datetime = datetime.datetime.strptime(str(timestamp_string), '%H:%M')
+
+    return timestamp_datetime
+
+def FileNameTimestampConverter(timestamp_string):
+    """
+    """
+    timestamp_datetime = datetime.datetime.strptime(str(timestamp_string), '%Hh%M')
 
     return timestamp_datetime
 

@@ -9,7 +9,8 @@ import readFiles as r
 import operator as o
 import time
 import datetime
-# from pprint import pprint #testing
+import sys
+from pprint import pprint #testing
 
 def DroneRemover(name, droneList):
     for drone in droneList:
@@ -22,18 +23,6 @@ def timesort(x):
     for y in x:
         time_stamp = datetime.datetime.strptime(y[c.AvailableHour], '%H:%M')
         return time_stamp
-
-def DroneAutonomySorter(list):
-    list = sorted(list, reverse=True, key=lambda list: list[c.Autonomy])
-    return list
-
-def DroneAccumDistanceSorter(list):
-    list = sorted(list, key=lambda list: list[c.AccumDistance])
-    return list
-
-def DroneNameSorter(list):
-    list = sorted(list, key=lambda list: list[c.Name])
-    return list
 
 def droneAssigner(drone_list, parcel_list):
     """
@@ -72,7 +61,7 @@ def droneAssigner(drone_list, parcel_list):
         right_drone[c.AvailableHour] = t.time_update(t.timeMax(right_drone[c.AvailableHour], parcel[c.OrderHour]), parcel[c.OrderDuration])
         if t.timestampConverter(right_drone[c.AvailableHour])>t.timestampConverter("20:00"):
             right_drone[c.AvailableHour] = t.time_update("08:00", parcel[c.OrderDuration])
-        
+            right_drone[c.AvailableDate] = t.drone_date_update(parcel[c.OrderDate][1:])
         
         DroneRemover(right_drone[c.Name], drone_list)
         drone_list.append(right_drone)
@@ -82,10 +71,17 @@ def droneAssigner(drone_list, parcel_list):
     return DroneParcelCombo 
 
 
+################################### TESTING CRAP
 
-# fileDict = r.fileFinder()
+# if __name__ == "__main__":         
+#     arg1 = str(sys.argv[1])
+#     arg2 = str(sys.argv[2])
+#     fileDict = r.fileFinder(arg1, arg2)
+
+
 # droneList = r.droneLister(fileDict["droneFile"])
 # parcelList = r.parcelLister(fileDict["parcelFile"])
 
 # pprint(droneAssigner(droneList, parcelList))
 
+################################### TESTING CRAP
