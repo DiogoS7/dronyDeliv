@@ -11,22 +11,22 @@ import os
 def readHeader(file_name):
     
     """
-    Returns a tuple with the day, time and company specified in file
+    Returns a tuple with the date, time and company specified in file
     Requires: file to be a text file in established format and file_name to be within quotation marks
-    Ensures: returnal of a tuple in format (day, time, company)
+    Ensures: returnal of a tuple in format (date, time, company)
     """
     
     inFile = open(file_name, "r") 
     inFile.readline() #skips formal indication line
     time = inFile.readline().replace("\n", "") #removes leftover \n from ending of lines in text file
     inFile.readline() 
-    day = inFile.readline().replace("\n", "")
+    date = inFile.readline().replace("\n", "")
     inFile.readline() 
     company = inFile.readline().replace("\n", "") 
 
     inFile.close()
     
-    return (day, time, company)
+    return (date, time, company)
  
 def droneLister(file_name):
     """ 
@@ -72,7 +72,7 @@ def parcelLister(file_name):
     inFile.close()
     return parcelList
 
-def fileFinder():
+def fileFinder(sysarg1, sysarg2):
     """
     Given that the program is meant to simply be executed within the same directory as the drone and parcel files,
     without having to be tampered with by the examining teachers, this function serves the purpose of finding those two files
@@ -81,8 +81,8 @@ def fileFinder():
     Usage: for intended use, "fileDict=fileFinder()" should be included in main file
     """
     fileDict= {}
-    fileDict["droneFile"] = (fnmatch.filter(os.listdir('.'), 'drones*.txt'))[0]
-    fileDict["parcelFile"] = (fnmatch.filter(os.listdir('.'), 'parcels*.txt'))[0]
+    fileDict["droneFile"] = sysarg1
+    fileDict["parcelFile"] = sysarg2
 
     return fileDict
 

@@ -8,23 +8,27 @@
 import datetime
 import constants as c
 
-def time_sorter(droneListUnsorted):
+def time_difference(time1, time2):
     """
-    Receives a list with each index corresponding to a list of each drone's specifications
-    Requires: a txt file with a list of drones where each index corresponds to each drone's specifications
-    Ensures: a sorted list where the first index corresponds to whichever drone has ready first
+    2 strings in : format
     """
-    
-    droneListSorted = sorted(droneListUnsorted, key=lambda x: datetime.datetime.strptime(x[c.AvailableHour], '%H:%M'))
+    time1 = datetime.datetime.strptime(str(time1), '%H:%M')
+    time2 = datetime.datetime.strptime(str(time2), '%H:%M')
 
-    return droneListSorted
+    time_difference = max(time1, time2) - min(time1, time2)
+
+    return str(time_difference)[2:4]
+
+
 
 def time_update(time_string, time_value):
     """
     Receives a string with the value of time and a value which will increment time
     Requires: time value in the format of a string and a integer value to increment 
-    Ensures: time value now incremented based on value given
+    Ensures: time value now incremented based on value given 
     """
+    ##### ADDRESS 8AM THING IN DOCSTRING
+    time_value = int(time_value)
 
     time_to_update = datetime.datetime.strptime(str(time_string), '%H:%M')
 
@@ -34,9 +38,77 @@ def time_update(time_string, time_value):
 
     time_updated = time_updated[11:16]
 
+
     return time_updated
 
-def time_comparator(time1, time2):
+def FileNameTimeUpdate(time_string, time_value):
+    """
+    Receives a string with the value of time and a value which will increment time
+    Requires: time value in the format of a string and a integer value to increment 
+    Ensures: time value now incremented based on value given 
+    """    ################ EDIT BECAUSE FORMAT IS h AND NOT : LIKE TIME_UPDATE
+    time_value = int(time_value)
+
+    time_to_update = datetime.datetime.strptime(str(time_string), '%Hh%M')
+
+    time_updated = time_to_update + datetime.timedelta(minutes=time_value)
+
+    time_updated = str(time_updated)
+
+    time_updated = "{0}h{1}".format(time_updated[11:13], time_updated[14:16])
+
+
+    return time_updated
+
+def drone_date_update(date_string, days_value = 1):
+    """
+
+    """
+    days_value = int(days_value)
+    
+    date_to_update = datetime.datetime.strptime(str(date_string), '%Y-%M-%d')
+
+    date_updated = date_to_update + datetime.timedelta(days=days_value)
+
+    date_updated = str(date_updated)
+
+    date_updated = date_updated[:10]
+
+    return date_updated
+    
+def FileNameDateUpdate(date_string, days_value = 1):
+    """
+
+    """
+    days_value = int(days_value)
+    
+    date_to_update = datetime.datetime.strptime(str(date_string), '%d-%M-%Y')
+
+    date_updated = date_to_update + datetime.timedelta(days=days_value)
+
+    date_updated = str(date_updated)
+
+    date_updated = date_updated[:10]
+
+    return date_updated
+
+
+def timestampConverter(timestamp_string):
+    """
+    """
+    timestamp_datetime = datetime.datetime.strptime(str(timestamp_string), '%H:%M')
+
+    return timestamp_datetime
+
+def FileNameTimestampConverter(timestamp_string):
+    """
+    """
+    timestamp_datetime = datetime.datetime.strptime(str(timestamp_string), '%Hh%M')
+
+    return timestamp_datetime
+
+
+def timeMax(time1, time2):
     """
     ~~~~~ strings must be in format %H:%M
     """
