@@ -3,9 +3,10 @@
 # 55373 José Almeida
 # 55375 Diogo Santos
 
-import constants
+import constants as c
 import fnmatch
 import os
+import datetime
 
 
 def readHeader(file_name):
@@ -85,6 +86,21 @@ def fileFinder(sysarg1, sysarg2):
     fileDict["parcelFile"] = sysarg2
 
     return fileDict
+
+def validateFile(file_name):
+    """
+    """
+    time = str(c.headerTime)
+    date = str(c.headerDate)
+
+    try:
+        datetime.datetime.strptime(time, '%h%')
+    except ValueError:
+        print("Input error: name and header inconsistent in file <name of file>.")
+    try:
+        datetime.datetime.strptime(date, '%d-%m-%Y')
+    except ValueError:
+        print("Input error: name and header inconsistent in file <name of file>.")
 
 # fileDict = fileFinder()
 
