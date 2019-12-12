@@ -19,11 +19,6 @@ def DroneRemover(name, droneList):
     return droneList
 
 
-def timesort(x):
-    for y in x:
-        time_stamp = datetime.datetime.strptime(y[c.AvailableHour], '%H:%M')
-        return time_stamp
-
 def droneAssigner(drone_list, parcel_list):
     """
     

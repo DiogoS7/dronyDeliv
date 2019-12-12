@@ -55,7 +55,7 @@ def FileNameTimeUpdate(time_string, time_value):
 
     time_updated = str(time_updated)
 
-    time_updated = time_updated[11:16]
+    time_updated = "{0}h{1}".format(time_updated[11:13], time_updated[14:16])
 
 
     return time_updated
@@ -91,6 +91,7 @@ def FileNameDateUpdate(date_string, days_value = 1):
     date_updated = date_updated[:10]
 
     return date_updated
+
 
 def timestampConverter(timestamp_string):
     """

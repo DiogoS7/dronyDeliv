@@ -8,8 +8,10 @@
 # Value of the index number corresponding the name of a drone in list 
 Name = 0
 
-headerTime = 0
-headerDay = 1
+
+# Value of the index number corresponding to, respectively, the day, time and company found in readFiles.readHeader() return tuple
+headerDate = 0
+headerTime = 1
 headerCompany = 2 
 
 # Value of the index number corresponding the name of the operation zone in list

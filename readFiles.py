@@ -11,22 +11,22 @@ import os
 def readHeader(file_name):
     
     """
-    Returns a tuple with the day, time and company specified in file
+    Returns a tuple with the date, time and company specified in file
     Requires: file to be a text file in established format and file_name to be within quotation marks
-    Ensures: returnal of a tuple in format (day, time, company)
+    Ensures: returnal of a tuple in format (date, time, company)
     """
     
     inFile = open(file_name, "r") 
     inFile.readline() #skips formal indication line
     time = inFile.readline().replace("\n", "") #removes leftover \n from ending of lines in text file
     inFile.readline() 
-    day = inFile.readline().replace("\n", "")
+    date = inFile.readline().replace("\n", "")
     inFile.readline() 
     company = inFile.readline().replace("\n", "") 
 
     inFile.close()
     
-    return (day, time, company)
+    return (date, time, company)
  
 def droneLister(file_name):
     """ 
