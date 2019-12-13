@@ -117,6 +117,7 @@ def droneValidater(droneFile):
     if headerTime != fileNameTime or headerDate != fullFileDate or headerScope != fileNameScope:
         raise IOError("Input error: name and header inconsistent in file {0}".format(droneFile))
 
+    return fileNameTime, fullFileDate
 
 
 def parcelValidater(parcelFile):
@@ -146,3 +147,15 @@ def parcelValidater(parcelFile):
 
     if headerTime != fileNameTime or headerDate != fullFileDate or headerScope != fileNameScope:
         raise IOError("Input error: name and header inconsistent in file {0}".format(parcelFile))
+
+    return fileNameTime, fullFileDate
+
+def fileValidater(droneFile, parcelFile):
+    """
+    this function checks if the two input file names information correspond to their headers and if they have the same date and time, not considering the scope
+    """
+    droneFileName = str(droneValidater(droneFile))
+    parcelFileName = str(parcelValidater(parcelFile))
+
+    if droneFileName != parcelFileName:
+        raise IOError("Input error: inconsistent files {0} and {1}".format(droneFile, parcelFile))
