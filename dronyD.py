@@ -10,22 +10,24 @@ import time_kit as t
 import writeFiles as w
 import sys
 
-
 if __name__ == "__main__":
     arg1 = str(sys.argv[1])
     arg2 = str(sys.argv[2])
     fileDict = r.fileFinder(arg1, arg2)
 
-droneList = r.droneLister(fileDict["droneFile"])
-parcelList = r.parcelLister(fileDict["parcelFile"])
+droneFile = fileDict["droneFile"]
+parcelFile = fileDict["parcelFile"]
 
 
+r.fileValidater(droneFile, parcelFile)
+
+
+droneList = r.droneLister(droneFile)
+parcelList = r.parcelLister(parcelFile)
 
 newDroneFileName = w.droneFileMaker(fileDict)
 w.headerWriter("Drones", fileDict, newDroneFileName)
 w.droneWriter(o.droneAssigner(droneList, parcelList), newDroneFileName)
-
-
 
 TimetableFileName = w.timetableFileMaker(fileDict)
 w.headerWriter("Timetable", fileDict, TimetableFileName)
