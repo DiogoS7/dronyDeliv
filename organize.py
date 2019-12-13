@@ -36,7 +36,6 @@ def droneAssigner(drone_list, parcel_list):
     """
     
     """
-    unassigned_counter = 1
     DroneParcelCombo = {}
     CancelledOrders = []
     original_drone_list = drone_list[:]
@@ -73,7 +72,7 @@ def droneAssigner(drone_list, parcel_list):
         right_drone[c.AvailableHour] = t.time_update(t.timeMax(right_drone[c.AvailableHour], parcel[c.OrderHour]), parcel[c.OrderDuration])
         if t.timestampConverter(right_drone[c.AvailableHour])>t.timestampConverter("20:00"):
             right_drone[c.AvailableHour] = t.time_update("08:00", parcel[c.OrderDuration])
-            right_drone[c.AvailableDate] = t.drone_date_update(parcel[c.OrderDate])
+            right_drone[c.AvailableDate] = t.date_update(parcel[c.OrderDate])
         
         
         

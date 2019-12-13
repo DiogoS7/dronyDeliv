@@ -60,7 +60,7 @@ def FileNameTimeUpdate(time_string, time_value):
 
     return time_updated
 
-def drone_date_update(date_string, days_value = 1):
+def date_update(date_string, days_value = 1):
     """
 
     """

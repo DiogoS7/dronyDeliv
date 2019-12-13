@@ -1,1 +1,0 @@
-This program is meant to be run in the same directory as the drone and parcel files. Please refrain from including more than one drone file or more than one parcel file as this might result in an unwanted result.

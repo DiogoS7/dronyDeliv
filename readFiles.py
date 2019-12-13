@@ -95,7 +95,7 @@ def validateFile(file_name):
     date = str(c.headerDate)
 
     try:
-        datetime.datetime.strptime(time, '%h%')
+        datetime.datetime.strptime(time, '%Hh%M')
     except ValueError:
         print("Input error: name and header inconsistent in file <name of file>.")
     try:
