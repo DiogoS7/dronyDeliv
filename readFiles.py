@@ -7,6 +7,7 @@ import constants as c
 import fnmatch
 import os
 import datetime
+import sys
 
 
 def readHeader(file_name):
@@ -88,24 +89,73 @@ def fileFinder(sysarg1, sysarg2):
 
     return fileDict
 
-def validateFile(file_name):
+def droneValidater(droneFile):
     """
+    this function checks if the information present in file name corresponds the information in it's header
     """
-    time = str(c.headerTime)
-    date = str(c.headerDate)
+    header = readHeader(droneFile)
 
-    try:
-        datetime.datetime.strptime(time, '%Hh%M')
-    except ValueError:
-        print("Input error: name and header inconsistent in file <name of file>.")
-    try:
-        datetime.datetime.strptime(date, '%d-%m-%Y')
-    except ValueError:
-        print("Input error: name and header inconsistent in file <name of file>.")
+        #Definition of file header details
+    headerTime = str(header[c.headerTime])
+    headerDate = str(header[c.headerDate])
+    headerScope = str(header[c.headerScope]).lower()
+        
+        #Definition of file name details
+    fileNameTime = droneFile[6:11]
 
-# fileDict = fileFinder()
+    if len(droneFile)==25: 
+        fileNameDay = droneFile[20:21]
+    elif len(droneFile)==26:
+        fileNameDay = droneFile[20:22]
+        
+    fileNameMonth = droneFile[17:19]
+    fileNameYear = droneFile[12:16]
+    fullFileDate = str(fileNameDay) +"-"+ str(fileNameMonth) +"-"+ str(fileNameYear)
 
-# print(fileDict)
+    fileNameScope = droneFile[:6]
 
-# caract = readHeader(fileDict["droneFile"])
-# print(caract[1])
+    if headerTime != fileNameTime or headerDate != fullFileDate or headerScope != fileNameScope:
+        raise IOError("Input error: name and header inconsistent in file {0}".format(droneFile))
+
+    return fileNameTime, fullFileDate
+
+
+def parcelValidater(parcelFile):
+    """
+    this function checks if the information present in file name corresponds the information in it's header
+    """
+    header = readHeader(parcelFile)
+
+        #Definition of file header details
+    headerTime = str(header[c.headerTime])
+    headerDate = str(header[c.headerDate])
+    headerScope = str(header[c.headerScope]).lower()
+        
+        #Definition of file name details
+    fileNameTime = parcelFile[7:12]
+
+    if len(parcelFile)==26: 
+        fileNameDay = parcelFile[21:22]
+    elif len(parcelFile)==27:
+        fileNameDay = parcelFile[21:23]
+        
+    fileNameMonth = parcelFile[18:20]
+    fileNameYear = parcelFile[13:17]
+    fullFileDate = str(fileNameDay) +"-"+ str(fileNameMonth) +"-"+ str(fileNameYear)
+
+    fileNameScope = parcelFile[:7]
+
+    if headerTime != fileNameTime or headerDate != fullFileDate or headerScope != fileNameScope:
+        raise IOError("Input error: name and header inconsistent in file {0}".format(parcelFile))
+
+    return fileNameTime, fullFileDate
+
+def fileValidater(droneFile, parcelFile):
+    """
+    this function checks if the two input file names information correspond to their headers and if they have the same date and time, not considering the scope
+    """
+    droneFileName = str(droneValidater(droneFile))
+    parcelFileName = str(parcelValidater(parcelFile))
+
+    if droneFileName != parcelFileName:
+        raise IOError("Input error: inconsistent files {0} and {1}".format(droneFile, parcelFile))
