@@ -59,18 +59,17 @@ OrderDuration = 6
 # Value of the index number corresponding to the position of time value in a list of each drone's specifications
 TimeIndex = 7
 
-# Value of the index number corresponding, to, respectively, the drone and the parcel in DroneParcelCombo.values()
+# Value of the index number corresponding to, respectively, the drone and the parcel in DroneParcelCombo.values() (regarding DroneParcelCombo dictionary, that returns from organize.droneAssigner())
 
 DroneInCombo = 1
 ParcelInCombo = 0
 
-# Value of the index number corresponding, to, respectively, DroneParcelCombo and CancelledOrders from the tuple returned by droneAssigner()
+# Value of the index number corresponding to, respectively, DroneParcelCombo and CancelledOrders from the tuple returned by organize.droneAssigner()
 
 DroneParcelCombo = 0
 CancelledOrders = 1
 
 
-
-#############
+# Value of the index number corresponding to, respectively, updatedParcelDate and updatedParcel hour in function writeFiles.timetableWriter()
 updatedParcelDate = 0
 updatedParcelHour = 1

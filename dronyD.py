@@ -3,6 +3,8 @@
 # 55373 José Almeida
 # 55375 Diogo Santos
 
+# Main File: being the main file, this is where the functions written in the helper modules and called and were the program's flow is defined.
+
 import constants as c
 import organize as o
 import readFiles as r
@@ -21,9 +23,16 @@ parcelFile = fileDict["parcelFile"]
 
 r.fileValidater(droneFile, parcelFile)
 
-
 droneList = r.droneLister(droneFile)
 parcelList = r.parcelLister(parcelFile)
+
+# TimetableFileName = w.timetableFileMaker(fileDict)
+# w.headerWriter("Timetable", fileDict, TimetableFileName)
+# w.timetableWriter(o.droneAssigner(droneList, parcelList), TimetableFileName)
+
+# newDroneFileName = w.droneFileMaker(fileDict)
+# w.headerWriter("Drones", fileDict, newDroneFileName)
+# w.droneWriter(o.droneAssigner(droneList, parcelList), newDroneFileName)
 
 newDroneFileName = w.droneFileMaker(fileDict)
 w.headerWriter("Drones", fileDict, newDroneFileName)
@@ -32,6 +41,5 @@ w.droneWriter(o.droneAssigner(droneList, parcelList), newDroneFileName)
 TimetableFileName = w.timetableFileMaker(fileDict)
 w.headerWriter("Timetable", fileDict, TimetableFileName)
 w.timetableWriter(o.droneAssigner(droneList, parcelList), TimetableFileName)
-
 
     

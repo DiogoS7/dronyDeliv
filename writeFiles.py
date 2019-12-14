@@ -7,15 +7,15 @@ import organize as o
 import constants as c
 import readFiles as r
 import time_kit as t
-import sys ###TESTING
-from pprint import pprint ###TESTING
 import datetime
-
+from copy import deepcopy
 
 
 def droneFileMaker(fileDict):
     """
-    Creates new file and returns it's name
+    Creates new drone file and returns it's name.
+    Requires: fileDict to be a dictionary containing the names of the input files.
+    Returns: the new drone file's name.
     """
 
     originalFile = fileDict["droneFile"]
@@ -50,7 +50,9 @@ def droneFileMaker(fileDict):
 
 def timetableFileMaker(fileDict):
     """
-    Creates new file and returns it's name
+    Creates timetable file and returns it's name.
+    Requires: fileDict to be a dictionary containing the names of the input files.
+    Returns: the timetable file's name.
     """
 
     originalFile = fileDict["parcelFile"]
@@ -82,7 +84,9 @@ def timetableFileMaker(fileDict):
 
 def headerWriter(newFileType, fileDict, newFileName):
     """
-    new file type "Drones" or "Timetable"
+    Updates the input file header and writes it on the desired new file.
+    Requires: newFileType argument to be a string and to either be "Drones" or "Timetable". fileDict argument to be a dictionary containing the names of the input files. newFileName to be a string representing the name of the new file that is going to be written on.
+    Ensures: updated header lines are written on the designated new file.
     """
 
     originalFile = fileDict["droneFile"]
@@ -113,17 +117,19 @@ def headerWriter(newFileType, fileDict, newFileName):
 
 def droneWriter(droneAssignerTuple, newFileName):
     """
-    writes body of new dronefile based on results from o.DroneAssigner()
+    Writes body of new drone file based on results from o.DroneAssigner().
+    Requires: droneAssignerTuple to be a tuple including the dictionary that has the drone/parcel matches and a list of unassigned drones. newFileName has to be a string representing the name of the file to be written on.
+    Returns: nothing.
     """
     
-    DroneParcelCombo = droneAssignerTuple[0]
-    UnassignedDrones = droneAssignerTuple[2]
+    DroneParcelCombo = deepcopy(droneAssignerTuple[0])
+    UnassignedDrones = deepcopy(droneAssignerTuple[2])
     
     
     
     droneFile = open(newFileName, "a")
 
-    valueList = list(DroneParcelCombo.values())
+    valueList = deepcopy(list(DroneParcelCombo.values()))
     assignedDrones = [item[c.DroneInCombo] for item in valueList]
     allDrones = assignedDrones + UnassignedDrones
     allDrones.sort(key=lambda k: (datetime.datetime.strptime(k[c.AvailableDate], '%Y-%M-%d'), datetime.datetime.strptime(k[c.AvailableHour], '%H:%M'), -float(k[c.Autonomy]), k[c.Name]))
@@ -144,17 +150,19 @@ def droneWriter(droneAssignerTuple, newFileName):
 
 def timetableWriter(droneAssignerTuple, newFileName):
     """
+    Writes body of timetable file based on results from o.DroneAssigner().
+    Requires: droneAssignerTuple to be a tuple including the dictionary that has the drone/parcel matches, a list of unassigned drones and a list of cancelled orders. newFileName has to be a string representing the name of the file to be written on.
+    Returns: nothing.
     """
     parcelFile = open(newFileName, "a")
-    DroneParcelCombo = droneAssignerTuple[0]
-    CancelledOrders = droneAssignerTuple[1]
-    valueList = list(DroneParcelCombo.values())
-    assignedDrones = [item[c.DroneInCombo] for item in valueList]
+    DroneParcelCombo = deepcopy(droneAssignerTuple[0])
+    CancelledOrders = deepcopy(droneAssignerTuple[1])
+    valueList = deepcopy(list(DroneParcelCombo.values()))
+    assignedDrones = [item[c.DroneInCombo] for item in valueList] # creates a list of assigned drones based on the values from the DroneParcelCombo dictionary
     DroneParcelCombo_Specified = {}
     updatedParcels = []
-    writtenDrones = []
-
-    CancelledOrders.sort(key=lambda k: (k[c.OrderName]))
+    writtenDrones = [] # list to keep track of the assigned drones that have been written in the timetable file. Updates with each line written
+    CancelledOrders.sort(key=lambda k: (k[c.OrderName])) # sorts cancelled orders by their name
     if len(CancelledOrders)>0:
         for order in CancelledOrders:
             orderDate = order[c.OrderDate].replace(" ","")
@@ -162,12 +170,12 @@ def timetableWriter(droneAssignerTuple, newFileName):
             orderName = order[c.OrderName]
             parcelFile.write("{0}, {1}, {2}, cancelled\n".format(orderDate, orderHour, orderName))
     
-    valueList = list(DroneParcelCombo.values())
-    Parcels = [item[c.ParcelInCombo] for item in valueList]
-    Parcels.sort(key=lambda k: (datetime.datetime.strptime(k[c.OrderDate].replace(" ",""), '%Y-%M-%d'), datetime.datetime.strptime(k[c.OrderHour], '%H:%M'), k[c.OrderName]))
+    valueList = deepcopy(list(DroneParcelCombo.values()))
+    Parcels = [item[c.ParcelInCombo] for item in valueList] # creates list of parcels based on the values from the DroneParcelCombo dictionary.
+    Parcels.sort(key=lambda k: (datetime.datetime.strptime(k[c.OrderDate].replace(" ",""), '%Y-%M-%d'), datetime.datetime.strptime(k[c.OrderHour], '%H:%M'), k[c.OrderName])) 
     
     for parcel, drone in valueList:
-        DroneParcelCombo_Specified[parcel[c.OrderName]] = drone[c.Name]
+        DroneParcelCombo_Specified[parcel[c.OrderName]] = drone[c.Name] # creates simpler dictionary that includes only the parcel's client name and assigned drone
     
     
     assignedDroneNames = [item[c.Name] for item in assignedDrones]
@@ -178,7 +186,9 @@ def timetableWriter(droneAssignerTuple, newFileName):
         orderDrone = DroneParcelCombo_Specified[order[c.OrderName]]
         orderDuration = order[c.OrderDuration]
 
-        if (assignedDroneNames.count(orderDrone) > 1) and (orderDrone in writtenDrones): #mais que uma vez  
+        # the following block of code serves the purpose of understanding if a given drone has been used more than once, in order to write the correct parcel departure hour and date in the timetable file
+
+        if (assignedDroneNames.count(orderDrone) > 1) and (orderDrone in writtenDrones):
             assignedDrones.sort(key = lambda k: (datetime.datetime.strptime(k[c.AvailableDate], '%Y-%M-%d'), datetime.datetime.strptime(k[c.AvailableHour], '%H:%M')))
             assignedDroneNames = [item[c.Name] for item in assignedDrones]
             usedDroneIndex = assignedDroneNames.index(orderDrone)
@@ -197,7 +207,7 @@ def timetableWriter(droneAssignerTuple, newFileName):
         updatedParcels.append(list(updatedParcel))
         writtenDrones.append(orderDrone)
 
-    updatedParcels.sort(key= lambda parcel: (datetime.datetime.strptime(parcel[c.updatedParcelDate].replace(" ",""), '%Y-%M-%d'), datetime.datetime.strptime(parcel[c.updatedParcelHour], '%H:%M')))
+    updatedParcels.sort(key= lambda k: (datetime.datetime.strptime(k[c.updatedParcelDate].replace(" ",""), '%Y-%M-%d'), datetime.datetime.strptime(k[c.updatedParcelHour], '%H:%M')))
 
     for order in updatedParcels:
         
@@ -210,22 +220,13 @@ def timetableWriter(droneAssignerTuple, newFileName):
     parcelFile.close()
     
     return
-    
-# if __name__ == "__main__":
-#     arg1 = str(sys.argv[1])
-#     arg2 = str(sys.argv[2])
-#     fileDict = r.fileFinder(arg1, arg2)
-
-# droneList = r.droneLister(fileDict["droneFile"])
-# parcelList = r.parcelLister(fileDict["parcelFile"])
-
-# newDroneFileName = droneFileMaker(fileDict)
-# droneWriter(o.droneAssigner(droneList, parcelList), newDroneFileName)
-# newFileName = timetableFileMaker(fileDict)
-
-# headerWriter("Timetable", fileDict, newFileName)
-# timetableWriter(o.droneAssigner(droneList, parcelList), newFileName)
 
 
 
 
+import sys
+
+if __name__ == "__main__":
+    arg1 = str(sys.argv[1])
+    arg2 = str(sys.argv[2])
+    fileDict = r.fileFinder(arg1, arg2)

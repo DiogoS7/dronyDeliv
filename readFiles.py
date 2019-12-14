@@ -4,18 +4,15 @@
 # 55375 Diogo Santos
 
 import constants as c
-import fnmatch
-import os
 import datetime
-import sys
 
 
 def readHeader(file_name):
     
     """
-    Returns a tuple with the date, time and company specified in file
-    Requires: file to be a text file in established format and file_name to be within quotation marks
-    Ensures: returnal of a tuple in format (date, time, company)
+    Returns a tuple with the date, time and company specified in file.
+    Requires: file to be a text file in established format and file_name to be within quotation marks.
+    Ensures: returnal of a tuple in format (date, time, company).
     """
     
     inFile = open(file_name, "r") 
@@ -34,11 +31,9 @@ def readHeader(file_name):
 def droneLister(file_name):
     """ 
     Returns a list where each element is a list containing the details of one drone. 
-    Requires: "file_name" argument to be a text file in the established format and to be within quotation marks
-    Ensures: a list with sublists containing the details of each drone in separate elements
-    following the format: [[name_of_drone], [area_of_operation], [weight_capacity],
-    [max_range], [distance_travelled], [autonomy], [date_of_availability], [hour_of
-    _availability]]
+    Requires: "file_name" argument to be a text file in the established format and to be within quotation marks.
+    Ensures: a list with sublists containing the details of each drone in separate elements.
+    following the format: [[name_of_drone], [area_of_operation], [weight_capacity], [max_range], [distance_travelled], [autonomy], [date_of_availability], [hour_of_availability]]
     """
     inFile = open(file_name, "r")
     predroneList = inFile.readlines() #separating function in an early list and a curated list for ease of understanding
@@ -55,12 +50,9 @@ def droneLister(file_name):
 
 def parcelLister(file_name):
     """
-    Returns a lsit where each element is a list containing the details of one order. This function is identical to droneLister,
-    it was created for the sake of simplicity during further development.
-    Requires: "file_name" argument to be a text file in the established format and to be within quotation marks
-    Ensures: a list with sublists containing the details of each order in separate element
-    following the format: [[name_of_client], [area_of_delivery], [date_of_order], 
-    [hour_of_order], [distance_from_base], [parcel_weight]]
+    Returns a list where each element is a list containing the details of one order. This function is identical to droneLister, it was created for the sake of simplicity during further development.
+    Requires: "file_name" argument to be a text file in the established format and to be a string.
+    Ensures: a list with sublists containing the details of each order in separate element following the format: [[name_of_client], [area_of_delivery], [date_of_order], [hour_of_order], [distance_from_base], [parcel_weight]].
     """
     inFile = open(file_name, "r")
     preparcelList = inFile.readlines() #separating function in an early list and a curated list for ease of understanding
@@ -77,11 +69,9 @@ def parcelLister(file_name):
 
 def fileFinder(sysarg1, sysarg2):
     """
-    Given that the program is meant to simply be executed within the same directory as the drone and parcel files,
-    without having to be tampered with by the examining teachers, this function serves the purpose of finding those two files
-    and organizing them in a dictionary for ease of use. This function requires no input.
-    Returns: dictionary which includes the name of the drone file and the name of the name of the parcel file.
-    Usage: for intended use, "fileDict=fileFinder()" should be included in main file
+    Returns a dictionary which includes the file names given as sysarg1 and sysarg2.
+    Requires: sysarg1 and sysarg2 arguments to be strings in order to ensure proper function across program.
+    Ensures: dictionary which includes the name of the drone file and the name of the parcel file.
     """
     fileDict= {}
     fileDict["droneFile"] = sysarg1
@@ -91,7 +81,9 @@ def fileFinder(sysarg1, sysarg2):
 
 def droneValidater(droneFile):
     """
-    this function checks if the information present in file name corresponds the information in it's header
+    This function checks if the information present in the drone file's name corresponds to the information in it's header.
+    Requires: droneFile to be a string that is the name of the drone file to be verified, must follow the established "ScopeTime_Date" format.
+    Ensures: a customized IOError exception is raised if the information on the the file's name and the information on the file's header do not match.
     """
     header = readHeader(droneFile)
 
@@ -122,7 +114,9 @@ def droneValidater(droneFile):
 
 def parcelValidater(parcelFile):
     """
-    this function checks if the information present in file name corresponds the information in it's header
+    This function checks if the information present in the drone file's name corresponds to the information in it's header. It is very similar to droneValidater() and was created for the sake of simplicity regarding usage across the program. 
+    Requires parcelFile to be a string that is the name of the parcel file to be verified, must follow the established "ScopeTime_Date" format.
+    Ensures: a customized IOError exception is raised if the information on the the file's name and the information on the file's header do not match.
     """
     header = readHeader(parcelFile)
 
@@ -152,7 +146,8 @@ def parcelValidater(parcelFile):
 
 def fileValidater(droneFile, parcelFile):
     """
-    this function checks if the two input file names information correspond to their headers and if they have the same date and time, not considering the scope
+    This function checks if the two input files' information correspond to their headers by calling the parcelValidater() and droneValidater(), and also checks if their date and time match.
+    Requires: droneFile and parcelFile to be strings that are the respective names of the files to be verified, must follow the established "ScopeTime_Date" format.
     """
     droneFileName = str(droneValidater(droneFile))
     parcelFileName = str(parcelValidater(parcelFile))
