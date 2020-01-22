@@ -11,6 +11,8 @@ import readFiles as r
 import time_kit as t
 import writeFiles as w
 import sys
+from pprint import pprint
+from copy import deepcopy
 
 if __name__ == "__main__":
     arg1 = str(sys.argv[1])
@@ -34,12 +36,14 @@ parcelList = r.parcelLister(parcelFile)
 # w.headerWriter("Drones", fileDict, newDroneFileName)
 # w.droneWriter(o.droneAssigner(droneList, parcelList), newDroneFileName)
 
+a = o.droneAssigner(droneList, parcelList)
+b = deepcopy(a)
+
 newDroneFileName = w.droneFileMaker(fileDict)
 w.headerWriter("Drones", fileDict, newDroneFileName)
-w.droneWriter(o.droneAssigner(droneList, parcelList), newDroneFileName)
+w.droneWriter(a, newDroneFileName)
+
 
 TimetableFileName = w.timetableFileMaker(fileDict)
 w.headerWriter("Timetable", fileDict, TimetableFileName)
-w.timetableWriter(o.droneAssigner(droneList, parcelList), TimetableFileName)
-
-    
+w.timetableWriter(b, TimetableFileName)
