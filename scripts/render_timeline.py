@@ -134,7 +134,7 @@ def render() -> str:
         )
         out.append(
             f'<text class="muted" x="{gx:.1f}" y="{lanes_bottom + 16}" text-anchor="middle" '
-            f'font-size="11" font-style="italic">overnight</text>'
+            'font-size="11" font-style="italic">overnight</text>'
         )
 
     # Drone lanes
@@ -165,7 +165,7 @@ def render() -> str:
         )
         out.append(
             f'<text class="bar-text" x="{(x1 + x2) / 2:.1f}" y="{bar_y + 19:.0f}" '
-            f'text-anchor="middle" font-weight="600" font-size="13">'
+            'text-anchor="middle" font-weight="600" font-size="13">'
             f"{escape(d.order.client)}</text>"
         )
         out.append(
@@ -180,7 +180,7 @@ def render() -> str:
             )
             out.append(
                 f'<text class="note" x="{day_start - GAP - 8:.1f}" y="{bar_y + 19:.0f}" '
-                f'text-anchor="end" font-size="12">'
+                'text-anchor="end" font-size="12">'
                 f"ordered {d.order.requested_at:%H:%M}, too late for today →</text>"
             )
 
@@ -189,7 +189,7 @@ def render() -> str:
         y = lanes_bottom + 30 + i * 24
         out.append(
             f'<text class="bad" x="16" y="{y}" font-weight="600">✕ {escape(order.client)} '
-            f'cancelled</text>'
+            'cancelled</text>'
         )
         out.append(
             f'<text class="muted" x="170" y="{y}">'
