@@ -16,7 +16,7 @@ from pathlib import Path
 
 from dronydeliv.fileio import read_drones, read_orders
 from dronydeliv.models import Delivery
-from dronydeliv.scheduler import CLOSING, assign
+from dronydeliv.scheduler import assign
 
 ROOT = Path(__file__).resolve().parent.parent
 EXAMPLES = ROOT / "examples"
