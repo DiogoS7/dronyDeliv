@@ -6,6 +6,34 @@ A command-line scheduler for a drone delivery company. Given the current state o
 
 Originally built in 2019 as the group project for **Programação 1** (LTI) and refactored in 2026 into a tested, installable package.
 
+## Results
+
+Here is what the program produces for the sample files in [`examples/`](examples): four drones, six orders, on the morning of 5 November 2019.
+
+![Timeline of drone deliveries for the example run](docs/example-timeline.svg)
+
+**5 orders delivered, 1 cancelled.** Each decision follows from the [selection rules](#how-drones-are-chosen):
+
+| Order | Zone | Drone | Departs | Why |
+|---|---|---|---|---|
+| ana | Lisbon | alpha | 5 Nov 10:00 | alpha is the earliest-available Lisbon drone (free since 09:30) |
+| bruno | Porto | charlie | 5 Nov 10:15 | charlie is the only drone in Porto |
+| carla | Lisbon | bravo | 5 Nov 10:30 | alpha is still out until 10:40, and bravo is free |
+| duarte | Faro | — | cancelled | no drone operates in Faro |
+| eva | Lisbon | alpha | **6 Nov 08:00** | ordered at 19:30, but the 45-minute trip would end after 20:00, so it moves to the next morning |
+| filipe | Lisbon | delta | 5 Nov 12:00 | 5.5 km and 9 kg is beyond alpha and bravo, and only delta has the range and capacity |
+
+The run also writes the fleet's new state, which feeds into the next run:
+
+| Drone | Autonomy before → after (km) | Distance flown (km) | Free again |
+|---|---|---|---|
+| alpha | 40.0 → 31.0 | 9.0 | 6 Nov 08:45 |
+| bravo | 25.0 → 22.6 | 2.4 | 5 Nov 11:00 |
+| charlie | 60.0 → 52.0 | 8.0 | 5 Nov 11:15 |
+| delta | 12.0 → 1.0 | 11.0 | 5 Nov 13:30 |
+
+The raw output files are in [`examples/expected/`](examples/expected). The chart is generated from a real run by [`scripts/render_timeline.py`](scripts/render_timeline.py). For how the program is built and why, see the [design notes](docs/design.md).
+
 ## Quick start
 
 Requires Python 3.10+.
@@ -79,7 +107,8 @@ src/dronydeliv/
   models.py     Drone, Order, Delivery and Schedule types
 tests/          unit and end-to-end tests
 examples/       sample input files and expected output
-docs/           original project report (Portuguese)
+scripts/        regenerates the results chart
+docs/           design notes, results chart, original report (Portuguese)
 ```
 
 ## Development
