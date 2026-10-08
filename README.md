@@ -8,31 +8,60 @@ Originally built in 2019 as the group project for **Programação 1** (LTI) and 
 
 ## Results
 
-Here is what the program produces for the sample files in [`examples/`](examples): four drones, six orders, on the morning of 5 November 2019.
+What happens when you run it on the sample files: **4 drones, 6 orders, on Tuesday 5 November 2019.**
 
-![Timeline of drone deliveries for the example run](docs/example-timeline.svg)
+> ✅ **5 delivered** &nbsp;·&nbsp; 🌙 **1 moved to the next morning** &nbsp;·&nbsp; ❌ **1 cancelled**
 
-**5 orders delivered, 1 cancelled.** Each decision follows from the [selection rules](#how-drones-are-chosen):
+![Timeline of the example run: which drone flew which order, and when](docs/example-timeline.svg)
 
-| Order | Zone | Drone | Departs | Why |
-|---|---|---|---|---|
-| ana | Lisbon | alpha | 5 Nov 10:00 | alpha is the earliest-available Lisbon drone (free since 09:30) |
-| bruno | Porto | charlie | 5 Nov 10:15 | charlie is the only drone in Porto |
-| carla | Lisbon | bravo | 5 Nov 10:30 | alpha is still out until 10:40, and bravo is free |
-| duarte | Faro | — | cancelled | no drone operates in Faro |
-| eva | Lisbon | alpha | **6 Nov 08:00** | ordered at 19:30, but the 45-minute trip would end after 20:00, so it moves to the next morning |
-| filipe | Lisbon | delta | 5 Nov 12:00 | 5.5 km and 9 kg is beyond alpha and bravo, and only delta has the range and capacity |
+### What happened to each order
 
-The run also writes the fleet's new state, which feeds into the next run:
+- ✅ **ana** gets her parcel from **alpha** at 10:00. It's the first Lisbon drone free.
+- ✅ **bruno** gets his from **charlie** at 10:15. It's the only drone in Porto.
+- ✅ **carla** gets hers from **bravo** at 10:30. alpha is still out delivering to ana.
+- ✅ **filipe** gets his from **delta** at 12:00. His 9 kg parcel is 5.5 km away, and only delta is strong enough with the range to get there.
+- 🌙 **eva** gets hers from **alpha** at 08:00 the next morning. She ordered at 19:30, and the 45-minute trip wouldn't be back before drones stop flying at 20:00.
+- ❌ **duarte**'s order is cancelled. He's in Faro, and no drone works there.
 
-| Drone | Autonomy before → after (km) | Distance flown (km) | Free again |
-|---|---|---|---|
-| alpha | 40.0 → 31.0 | 9.0 | 6 Nov 08:45 |
-| bravo | 25.0 → 22.6 | 2.4 | 5 Nov 11:00 |
-| charlie | 60.0 → 52.0 | 8.0 | 5 Nov 11:15 |
-| delta | 12.0 → 1.0 | 11.0 | 5 Nov 13:30 |
+### The fleet afterwards
 
-The raw output files are in [`examples/expected/`](examples/expected). The chart is generated from a real run by [`scripts/render_timeline.py`](scripts/render_timeline.py). For how the program is built and why, see the [design notes](docs/design.md).
+Every run also saves each drone's new state, ready for the next batch of orders.
+
+| Drone | Battery range left | Free again |
+|---|---|---|
+| alpha | 31 km (was 40) | Wed 6 Nov, 08:45 |
+| bravo | 22.6 km (was 25) | Tue 5 Nov, 11:00 |
+| charlie | 52 km (was 60) | Tue 5 Nov, 11:15 |
+| delta | 1 km (was 12), nearly empty | Tue 5 Nov, 13:30 |
+
+<details>
+<summary>See the raw output files</summary>
+
+`timetable10h00_2019y11m5.txt`, with cancelled orders first, then each departure in time order:
+
+```
+2019-11-05, 11:00, duarte, cancelled
+2019-11-05, 10:00, ana, alpha
+2019-11-05, 10:15, bruno, charlie
+2019-11-05, 10:30, carla, bravo
+2019-11-05, 12:00, filipe, delta
+2019-11-06, 08:00, eva, alpha
+```
+
+`drones10h30_2019y11m5.txt`, the updated fleet:
+
+```
+bravo, Lisbon, 2, 1500, 82.4, 22.6, 2019-11-05, 11:00
+charlie, Porto, 8, 5000, 18.0, 52.0, 2019-11-05, 11:15
+delta, Lisbon, 10, 6000, 11.0, 1.0, 2019-11-05, 13:30
+alpha, Lisbon, 5, 3000, 129.5, 31.0, 2019-11-06, 08:45
+```
+
+Both files also start with a short header (time, date, company). The full files are in [`examples/expected/`](examples/expected).
+
+</details>
+
+Want the details? [How drones are chosen](#how-drones-are-chosen) explains the rules, and the [design notes](docs/design.md) explain how the program is built.
 
 ## Quick start
 

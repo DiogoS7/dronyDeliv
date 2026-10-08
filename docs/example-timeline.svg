@@ -1,62 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1148 324" width="1148" height="324" font-family="system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif" font-size="13">
-<style>.bg{fill:#ffffff}.ink{fill:#1f2328}.muted{fill:#59636e}.grid{stroke:#d1d9e0}.bar{fill:#0969da}.bar-text{fill:#ffffff}.req{fill:#bf8700}.lane{fill:#f6f8fa}@media (prefers-color-scheme: dark){.bg{fill:#0d1117}.ink{fill:#f0f6fc}.muted{fill:#9198a1}.grid{stroke:#3d444d}.bar{fill:#4493f8}.bar-text{fill:#0d1117}.req{fill:#d29922}.lane{fill:#151b23}}</style>
-<rect class="bg" width="1148" height="324" rx="8"/>
-<text class="ink" x="120" y="26" font-weight="600">Tue 05 Nov 2019</text>
-<line class="grid" x1="120.0" y1="58" x2="120.0" y2="254" stroke-width="1"/>
-<text class="muted" x="120.0" y="52" text-anchor="middle" font-size="11">10:00</text>
-<line class="grid" x1="200.0" y1="58" x2="200.0" y2="254" stroke-width="1"/>
-<text class="muted" x="200.0" y="52" text-anchor="middle" font-size="11">11:00</text>
-<line class="grid" x1="280.0" y1="58" x2="280.0" y2="254" stroke-width="1"/>
-<text class="muted" x="280.0" y="52" text-anchor="middle" font-size="11">12:00</text>
-<line class="grid" x1="360.0" y1="58" x2="360.0" y2="254" stroke-width="1"/>
-<text class="muted" x="360.0" y="52" text-anchor="middle" font-size="11">13:00</text>
-<line class="grid" x1="440.0" y1="58" x2="440.0" y2="254" stroke-width="1"/>
-<text class="muted" x="440.0" y="52" text-anchor="middle" font-size="11">14:00</text>
-<line class="grid" x1="520.0" y1="58" x2="520.0" y2="254" stroke-width="1"/>
-<text class="muted" x="520.0" y="52" text-anchor="middle" font-size="11">15:00</text>
-<line class="grid" x1="600.0" y1="58" x2="600.0" y2="254" stroke-width="1"/>
-<text class="muted" x="600.0" y="52" text-anchor="middle" font-size="11">16:00</text>
-<line class="grid" x1="680.0" y1="58" x2="680.0" y2="254" stroke-width="1"/>
-<text class="muted" x="680.0" y="52" text-anchor="middle" font-size="11">17:00</text>
-<line class="grid" x1="760.0" y1="58" x2="760.0" y2="254" stroke-width="1"/>
-<text class="muted" x="760.0" y="52" text-anchor="middle" font-size="11">18:00</text>
-<line class="grid" x1="840.0" y1="58" x2="840.0" y2="254" stroke-width="1"/>
-<text class="muted" x="840.0" y="52" text-anchor="middle" font-size="11">19:00</text>
-<line class="grid" x1="920.0" y1="58" x2="920.0" y2="254" stroke-width="1"/>
-<text class="muted" x="920.0" y="52" text-anchor="middle" font-size="11">20:00</text>
-<text class="ink" x="968.0" y="26" font-weight="600">Wed 06 Nov 2019</text>
-<line class="grid" x1="968.0" y1="58" x2="968.0" y2="254" stroke-width="1"/>
-<text class="muted" x="968.0" y="52" text-anchor="middle" font-size="11">08:00</text>
-<line class="grid" x1="1048.0" y1="58" x2="1048.0" y2="254" stroke-width="1"/>
-<text class="muted" x="1048.0" y="52" text-anchor="middle" font-size="11">09:00</text>
-<line class="grid" x1="1128.0" y1="58" x2="1128.0" y2="254" stroke-width="1"/>
-<text class="muted" x="1128.0" y="52" text-anchor="middle" font-size="11">10:00</text>
-<rect class="lane" x="120" y="74" width="1008" height="38" rx="4" opacity="0.6"/>
-<text class="ink" x="16" y="91.0" font-weight="600">alpha</text>
-<text class="muted" x="16" y="106.0" font-size="11">Lisbon</text>
-<rect class="lane" x="120" y="120" width="1008" height="38" rx="4" opacity="0.6"/>
-<text class="ink" x="16" y="137.0" font-weight="600">bravo</text>
-<text class="muted" x="16" y="152.0" font-size="11">Lisbon</text>
-<rect class="lane" x="120" y="166" width="1008" height="38" rx="4" opacity="0.6"/>
-<text class="ink" x="16" y="183.0" font-weight="600">charlie</text>
-<text class="muted" x="16" y="198.0" font-size="11">Porto</text>
-<rect class="lane" x="120" y="212" width="1008" height="38" rx="4" opacity="0.6"/>
-<text class="ink" x="16" y="229.0" font-weight="600">delta</text>
-<text class="muted" x="16" y="244.0" font-size="11">Lisbon</text>
-<rect class="bar" x="120.0" y="79" width="53.3" height="28" rx="4"><title>ana: 05 Nov 10:00, 40 min</title></rect>
-<text class="bar-text" x="146.7" y="97.0" text-anchor="middle" font-weight="600">ana</text>
-<rect class="bar" x="140.0" y="171" width="80.0" height="28" rx="4"><title>bruno: 05 Nov 10:15, 60 min</title></rect>
-<text class="bar-text" x="180.0" y="189.0" text-anchor="middle" font-weight="600">bruno</text>
-<rect class="bar" x="160.0" y="125" width="40.0" height="28" rx="4"><title>carla: 05 Nov 10:30, 30 min</title></rect>
-<text class="bar-text" x="180.0" y="143.0" text-anchor="middle" font-weight="600">carla</text>
-<rect class="bar" x="968.0" y="79" width="60.0" height="28" rx="4"><title>eva: 06 Nov 08:00, 45 min</title></rect>
-<text class="bar-text" x="998.0" y="97.0" text-anchor="middle" font-weight="600">eva</text>
-<circle class="req" cx="880.0" cy="93.0" r="4"/>
-<rect class="bar" x="280.0" y="217" width="120.0" height="28" rx="4"><title>filipe: 05 Nov 12:00, 90 min</title></rect>
-<text class="bar-text" x="340.0" y="235.0" text-anchor="middle" font-weight="600">filipe</text>
-<rect class="bar" x="120" y="274" width="22" height="12" rx="3"/>
-<text class="muted" x="150" y="284">round trip</text>
-<circle class="req" cx="245" cy="280" r="4"/>
-<text class="muted" x="255" y="284">order placed; drone left later</text>
-<text class="muted" x="120" y="308">Cancelled: duarte (Faro)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 364" width="800" height="364" font-size="14" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif">
+<style>.bg{fill:#ffffff}.ink{fill:#1f2328}.muted{fill:#59636e}.grid{stroke:#d1d9e0}.lane{fill:#f6f8fa}.bar{fill:#0969da}.bar-text{fill:#ffffff}.note{fill:#9a6700}.bad{fill:#cf222e}@media (prefers-color-scheme: dark){.bg{fill:#0d1117}.ink{fill:#f0f6fc}.muted{fill:#9198a1}.grid{stroke:#3d444d}.lane{fill:#151b23}.bar{fill:#4493f8}.bar-text{fill:#0d1117}.note{fill:#d29922}.bad{fill:#ff7b72}}</style>
+<rect class="bg" width="800" height="364" rx="10"/>
+<text class="ink" x="112" y="24" font-weight="600" font-size="15">Tuesday 5 Nov</text>
+<line class="grid" x1="112.0" y1="56" x2="112.0" y2="304" stroke-width="1"/>
+<text class="muted" x="112.0" y="48" text-anchor="middle" font-size="12">10:00</text>
+<line class="grid" x1="210.7" y1="56" x2="210.7" y2="304" stroke-width="1"/>
+<text class="muted" x="210.7" y="48" text-anchor="middle" font-size="12">11:00</text>
+<line class="grid" x1="309.3" y1="56" x2="309.3" y2="304" stroke-width="1"/>
+<text class="muted" x="309.3" y="48" text-anchor="middle" font-size="12">12:00</text>
+<line class="grid" x1="408.0" y1="56" x2="408.0" y2="304" stroke-width="1"/>
+<text class="muted" x="408.0" y="48" text-anchor="middle" font-size="12">13:00</text>
+<line class="grid" x1="506.7" y1="56" x2="506.7" y2="304" stroke-width="1"/>
+<text class="muted" x="506.7" y="48" text-anchor="middle" font-size="12">14:00</text>
+<text class="ink" x="583" y="24" font-weight="600" font-size="15">Wednesday 6 Nov</text>
+<line class="grid" x1="582.7" y1="56" x2="582.7" y2="304" stroke-width="1"/>
+<text class="muted" x="582.7" y="48" text-anchor="middle" font-size="12">08:00</text>
+<line class="grid" x1="681.3" y1="56" x2="681.3" y2="304" stroke-width="1"/>
+<text class="muted" x="681.3" y="48" text-anchor="middle" font-size="12">09:00</text>
+<line class="grid" x1="780.0" y1="56" x2="780.0" y2="304" stroke-width="1"/>
+<text class="muted" x="780.0" y="48" text-anchor="middle" font-size="12">10:00</text>
+<line class="grid" x1="544.7" y1="56" x2="544.7" y2="308" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text class="muted" x="544.7" y="320" text-anchor="middle" font-size="11" font-style="italic">overnight</text>
+<rect class="lane" x="104" y="68" width="684" height="52" rx="6"/>
+<text class="ink" x="16" y="91" font-weight="600">alpha</text>
+<text class="muted" x="16" y="109" font-size="12">Lisbon</text>
+<rect class="lane" x="104" y="128" width="684" height="52" rx="6"/>
+<text class="ink" x="16" y="151" font-weight="600">bravo</text>
+<text class="muted" x="16" y="169" font-size="12">Lisbon</text>
+<rect class="lane" x="104" y="188" width="684" height="52" rx="6"/>
+<text class="ink" x="16" y="211" font-weight="600">charlie</text>
+<text class="muted" x="16" y="229" font-size="12">Porto</text>
+<rect class="lane" x="104" y="248" width="684" height="52" rx="6"/>
+<text class="ink" x="16" y="271" font-weight="600">delta</text>
+<text class="muted" x="16" y="289" font-size="12">Lisbon</text>
+<rect class="bar" x="112.0" y="80" width="65.8" height="28" rx="5"><title>ana: leaves 10:00, back 10:40</title></rect>
+<text class="bar-text" x="144.9" y="99" text-anchor="middle" font-weight="600" font-size="13">ana</text>
+<text class="muted" x="185.8" y="99" font-size="12">10:00–10:40</text>
+<rect class="bar" x="136.7" y="200" width="98.7" height="28" rx="5"><title>bruno: leaves 10:15, back 11:15</title></rect>
+<text class="bar-text" x="186.0" y="219" text-anchor="middle" font-weight="600" font-size="13">bruno</text>
+<text class="muted" x="243.3" y="219" font-size="12">10:15–11:15</text>
+<rect class="bar" x="161.3" y="140" width="49.3" height="28" rx="5"><title>carla: leaves 10:30, back 11:00</title></rect>
+<text class="bar-text" x="186.0" y="159" text-anchor="middle" font-weight="600" font-size="13">carla</text>
+<text class="muted" x="218.7" y="159" font-size="12">10:30–11:00</text>
+<rect class="bar" x="582.7" y="80" width="74.0" height="28" rx="5"><title>eva: leaves 08:00, back 08:45</title></rect>
+<text class="bar-text" x="619.7" y="99" text-anchor="middle" font-weight="600" font-size="13">eva</text>
+<text class="muted" x="664.7" y="99" font-size="12">08:00–08:45</text>
+<text class="note" x="498.7" y="99" text-anchor="end" font-size="12">ordered 19:30, too late for today →</text>
+<rect class="bar" x="309.3" y="260" width="148.0" height="28" rx="5"><title>filipe: leaves 12:00, back 13:30</title></rect>
+<text class="bar-text" x="383.3" y="279" text-anchor="middle" font-weight="600" font-size="13">filipe</text>
+<text class="muted" x="465.3" y="279" font-size="12">12:00–13:30</text>
+<text class="bad" x="16" y="334" font-weight="600">✕ duarte cancelled</text>
+<text class="muted" x="170" y="334">no drone works in Faro</text>
 </svg>
