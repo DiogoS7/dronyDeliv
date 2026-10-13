@@ -1,4 +1,6 @@
-# dronyDeliv
+<p align="center">
+  <img src="docs/social-preview.png" alt="dronyDeliv: schedules parcel deliveries across a drone fleet" width="100%">
+</p>
 
 [![CI](https://github.com/DiogoS7/dronyDeliv/actions/workflows/ci.yml/badge.svg)](https://github.com/DiogoS7/dronyDeliv/actions/workflows/ci.yml)
 
@@ -136,7 +138,7 @@ src/dronydeliv/
   models.py     Drone, Order, Delivery and Schedule types
 tests/          unit and end-to-end tests
 examples/       sample input files and expected output
-scripts/        regenerates the results chart
+scripts/        regenerates the results chart and the banner image
 docs/           design notes, results chart, original report (Portuguese)
 ```
 

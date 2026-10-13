@@ -1,0 +1,139 @@
+<!doctype html>
+<!--
+  Source for docs/social-preview.png (1280x640), the repo's social preview
+  and README banner. Regenerate with:  python scripts/render_social_preview.py
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>dronyDeliv social preview</title>
+<style>
+  :root {
+    --bg: #0b1020;
+    --panel: #121a2e;
+    --lane: #18223a;
+    --line: #26324d;
+    --ink: #f2f5fb;
+    --muted: #93a0bb;
+    --dim: #5d6a86;
+    --bar: #4c8dff;
+    --bar-ink: #06122b;
+    --amber: #f2b441;
+    --red: #ff7369;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1280px; height: 640px; }
+  body {
+    background:
+      radial-gradient(900px 500px at 92% -10%, rgba(76, 141, 255, 0.22), transparent 60%),
+      radial-gradient(700px 400px at -5% 110%, rgba(242, 180, 65, 0.10), transparent 60%),
+      var(--bg);
+    color: var(--ink);
+    font-family: "Inter", sans-serif;
+    padding: 64px 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    overflow: hidden;
+  }
+
+  header { display: flex; align-items: center; gap: 28px; }
+  .mark { width: 92px; height: 92px; flex: none; }
+  h1 {
+    font-family: "Inter Display", "Inter", sans-serif;
+    font-size: 88px; font-weight: 800; letter-spacing: -2.5px; line-height: 1;
+  }
+  h1 span { color: var(--bar); }
+  .tagline { font-size: 30px; color: var(--muted); margin-top: 12px; letter-spacing: -0.2px; }
+
+  .chips { display: flex; gap: 12px; margin-left: auto; align-self: flex-start; margin-top: 8px; }
+  .chip {
+    font-size: 20px; font-weight: 600; color: var(--ink);
+    padding: 8px 16px; border-radius: 999px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .panel {
+    flex: 1; border-radius: 22px; background: var(--panel);
+    border: 1px solid var(--line); padding: 26px 32px 22px;
+    display: flex; flex-direction: column; gap: 12px; position: relative;
+  }
+  .days { display: grid; grid-template-columns: 120px 1fr 64px 0.55fr; font-size: 18px; font-weight: 700; }
+  .days div:nth-child(2), .days div:nth-child(4) { color: var(--muted); }
+  .row { display: grid; grid-template-columns: 120px 1fr 64px 0.55fr; align-items: center; height: 46px; }
+  .name { font-size: 21px; font-weight: 700; }
+  .track { position: relative; height: 46px; background: var(--lane); border-radius: 10px; }
+  .gap { height: 46px; display: flex; justify-content: center; }
+  .gap::before { content: ""; border-left: 2px dashed var(--dim); height: 100%; }
+  .bar {
+    position: absolute; top: 7px; height: 32px; border-radius: 8px;
+    background: var(--bar); color: var(--bar-ink);
+    font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  }
+  .note { position: absolute; top: 12px; font-size: 16px; color: var(--amber); font-weight: 600; white-space: nowrap; }
+  .footer { display: flex; justify-content: space-between; align-items: center; font-size: 18px; color: var(--muted); margin-top: 2px; }
+  .footer .x { color: var(--red); font-weight: 700; }
+  .footer .stats b { color: var(--ink); }
+</style>
+</head>
+<body>
+  <header>
+    <svg class="mark" viewBox="0 0 92 92" aria-hidden="true">
+      <rect width="92" height="92" rx="22" fill="#4c8dff"/>
+      <g stroke="#06122b" stroke-width="5" stroke-linecap="round" fill="none">
+        <path d="M30 30 L62 62 M62 30 L30 62"/>
+      </g>
+      <g fill="#06122b">
+        <circle cx="26" cy="26" r="11"/><circle cx="66" cy="26" r="11"/>
+        <circle cx="26" cy="66" r="11"/><circle cx="66" cy="66" r="11"/>
+        <rect x="36" y="36" width="20" height="20" rx="6"/>
+      </g>
+      <g fill="#4c8dff">
+        <circle cx="26" cy="26" r="5"/><circle cx="66" cy="26" r="5"/>
+        <circle cx="26" cy="66" r="5"/><circle cx="66" cy="66" r="5"/>
+      </g>
+    </svg>
+    <div>
+      <h1>drony<span>Deliv</span></h1>
+      <p class="tagline">Schedules parcel deliveries across a drone fleet</p>
+    </div>
+    <div class="chips">
+      <span class="chip">Python</span>
+      <span class="chip">CLI</span>
+    </div>
+  </header>
+
+  <section class="panel">
+    <div class="days"><div></div><div>Tuesday 10:00 → 14:00</div><div></div><div>Wednesday 08:00 →</div></div>
+
+    <div class="row"><div class="name">alpha</div>
+      <div class="track">
+        <div class="bar" style="left:2%;width:16%">ana</div>
+        <div class="note" style="right:16px">ordered 19:30 · too late for today →</div>
+      </div>
+      <div class="gap"></div>
+      <div class="track"><div class="bar" style="left:4%;width:40%">eva</div></div>
+    </div>
+
+    <div class="row"><div class="name">bravo</div>
+      <div class="track"><div class="bar" style="left:14%;width:12%">carla</div></div>
+      <div class="gap"></div><div class="track"></div>
+    </div>
+
+    <div class="row"><div class="name">charlie</div>
+      <div class="track"><div class="bar" style="left:8%;width:25%">bruno</div></div>
+      <div class="gap"></div><div class="track"></div>
+    </div>
+
+    <div class="row"><div class="name">delta</div>
+      <div class="track"><div class="bar" style="left:51%;width:37%">filipe</div></div>
+      <div class="gap"></div><div class="track"></div>
+    </div>
+
+    <div class="footer">
+      <span class="stats"><b>5</b> delivered &nbsp;·&nbsp; <b>1</b> moved overnight &nbsp;·&nbsp; <span class="x">✕</span> <b>1</b> cancelled</span>
+      <span>github.com/DiogoS7/dronyDeliv</span>
+    </div>
+  </section>
+</body>
+</html>
