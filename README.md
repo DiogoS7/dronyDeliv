@@ -1,6 +1,6 @@
-<p align="center">
-  <img src="docs/social-preview.png" alt="dronyDeliv: schedules parcel deliveries across a drone fleet" width="100%">
-</p>
+![dronyDeliv: schedules parcel deliveries across a drone fleet](docs/social-preview.png)
+
+# dronyDeliv
 
 [![CI](https://github.com/DiogoS7/dronyDeliv/actions/workflows/ci.yml/badge.svg)](https://github.com/DiogoS7/dronyDeliv/actions/workflows/ci.yml)
 
