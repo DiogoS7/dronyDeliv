@@ -166,3 +166,7 @@ The code as originally submitted is preserved under the [`v1.0-submission`](http
 
 - **Diogo Santos** – time utilities, input validation
 - **José Almeida** – file reading and writing, assignment logic
+
+## License
+
+[MIT](LICENSE) © Diogo Santos and José Almeida
