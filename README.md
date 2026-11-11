@@ -8,13 +8,17 @@ A command-line scheduler for a drone delivery company. Given the current state o
 
 Originally built in 2019 as the group project for **Programação 1** (LTI) and refactored in 2026 into a tested, installable package.
 
+## How it works
+
+![How dronyDeliv works: two files go in (drone fleet and new orders), it picks a drone for each order, two files come out (delivery timetable and updated fleet)](docs/how-it-works.png)
+
 ## Results
 
-What happens when you run it on the sample files: **4 drones, 6 orders, on Tuesday 5 November 2019.**
+What happens when you run it on the sample files: a made-up drone fleet for **Solenne Biosciences**, with **4 drones and 6 orders on Tuesday 5 November 2019.**
 
 > ✅ **5 delivered** &nbsp;·&nbsp; 🌙 **1 moved to the next morning** &nbsp;·&nbsp; ❌ **1 cancelled**
 
-![Timeline of the example run: which drone flew which order, and when](docs/example-timeline.svg)
+![Example run on a timeline: each row is a drone, each blue bar is one delivery there and back](docs/example-schedule.png)
 
 ### What happened to each order
 
@@ -111,7 +115,7 @@ Time:
 Day:
 5-11-2019
 Company:
-iQueue
+Solenne Biosciences
 Drones:
 alpha, Lisbon, 5, 3000, 120.5, 40.0, 2019-11-05, 09:30
 ```
@@ -138,8 +142,8 @@ src/dronydeliv/
   models.py     Drone, Order, Delivery and Schedule types
 tests/          unit and end-to-end tests
 examples/       sample input files and expected output
-scripts/        regenerates the results chart and the banner image
-docs/           design notes, results chart, original report (Portuguese)
+scripts/        regenerates the README images from a real run (render_images.py)
+docs/           design notes, README images, original report (Portuguese)
 ```
 
 ## Development
@@ -151,6 +155,13 @@ ruff check .
 ```
 
 CI runs the tests and linter on Python 3.10–3.13 for every push.
+
+To regenerate the README images after changing the rules or the examples:
+
+```bash
+pip install playwright && playwright install chromium
+PYTHONPATH=src python scripts/render_images.py
+```
 
 ## What changed since the 2019 submission
 

@@ -3,7 +3,7 @@ Time:
 Day:
 5-11-2019
 Company:
-iQueue
+Solenne Biosciences
 Timeline:
 2019-11-05, 11:00, duarte, cancelled
 2019-11-05, 10:00, ana, alpha

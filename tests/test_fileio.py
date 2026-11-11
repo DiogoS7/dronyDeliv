@@ -18,7 +18,7 @@ class ReadTests(unittest.TestCase):
 
     def test_validates_example_pair(self):
         header = validate_pair(DRONES, PARCELS)
-        self.assertEqual(header.company, "iQueue")
+        self.assertEqual(header.company, "Solenne Biosciences")
 
 
 class ValidationTests(unittest.TestCase):

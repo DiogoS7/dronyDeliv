@@ -8,7 +8,7 @@ fields separated by ", "::
     Day:
     5-11-2019
     Company:
-    iQueue
+    Solenne Biosciences
     Drones:
     drone1, Lisbon, 5.0, 3000, 120.5, 40.0, 2019-11-05, 09:30
 

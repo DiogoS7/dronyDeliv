@@ -1,0 +1,61 @@
+/* Shared look for the README images (rendered by scripts/render_images.py). */
+:root {
+  --bg: #0b1020;
+  --panel: #121a2e;
+  --panel-2: #18223a;
+  --line: #26324d;
+  --ink: #f2f5fb;
+  --muted: #9aa7c2;
+  --dim: #5d6a86;
+  --blue: #4c8dff;
+  --blue-ink: #06122b;
+  --green: #3fcf8e;
+  --amber: #f2b441;
+  --red: #ff7369;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+}
+#card {
+  background:
+    radial-gradient(700px 360px at 100% 0%, rgba(76, 141, 255, 0.16), transparent 60%),
+    var(--bg);
+  padding: 36px 40px 40px;
+}
+h1 {
+  font-family: "Inter Display", "Inter", sans-serif;
+  font-size: 32px; font-weight: 800; letter-spacing: -0.6px;
+}
+.sub { color: var(--muted); font-size: 17px; margin-top: 6px; max-width: 860px; }
+.step { display: flex; align-items: center; gap: 12px; margin: 30px 0 14px; }
+.step .n {
+  width: 30px; height: 30px; border-radius: 50%; flex: none;
+  background: var(--blue); color: var(--blue-ink);
+  display: grid; place-items: center; font-weight: 800; font-size: 16px;
+}
+.step h2 { font-size: 21px; font-weight: 700; letter-spacing: -0.2px; }
+.step .hint { color: var(--muted); font-size: 15px; margin-left: 4px; }
+.panel {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+  padding: 16px 18px;
+}
+.panel h3 { font-size: 15px; font-weight: 700; color: var(--muted); text-transform: uppercase;
+  letter-spacing: 0.6px; margin-bottom: 10px; }
+.panel h3 .file { text-transform: none; letter-spacing: 0; font-weight: 500; color: var(--dim);
+  font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; margin-left: 6px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th { text-align: left; color: var(--dim); font-weight: 600; font-size: 13px; padding: 0 8px 6px 0; }
+td { padding: 6px 8px 6px 0; border-top: 1px solid var(--line); white-space: nowrap; }
+td.b { font-weight: 700; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700;
+  padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+.chip.ok { background: rgba(63, 207, 142, 0.14); color: var(--green); }
+.chip.late { background: rgba(242, 180, 65, 0.15); color: var(--amber); }
+.chip.no { background: rgba(255, 115, 105, 0.15); color: var(--red); }
+.muted { color: var(--muted); }
+.dim { color: var(--dim); }

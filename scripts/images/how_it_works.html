@@ -1,0 +1,126 @@
+<!doctype html>
+<!-- Source for docs/how-it-works.png. Regenerate: PYTHONPATH=src python scripts/render_images.py -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>How dronyDeliv works</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .two.out { grid-template-columns: 1.15fr 1fr; }
+
+  .rules { display: flex; align-items: stretch; gap: 8px; }
+  .rule {
+    flex: 1; background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    padding: 12px 12px; font-size: 15px; font-weight: 600; text-align: center;
+    display: flex; flex-direction: column; justify-content: center; gap: 4px;
+  }
+  .rule small { color: var(--muted); font-weight: 500; font-size: 13px; }
+  .rule.pick { background: var(--blue); color: var(--blue-ink); border-color: var(--blue); flex: 1.2; }
+  .rule.pick small { color: #0b2557; }
+  .arrow { color: var(--dim); align-self: center; font-size: 20px; }
+  .rules-note { display: flex; gap: 22px; margin-top: 12px; font-size: 15px; color: var(--muted); }
+  .rules-note b { color: var(--ink); }
+
+  .tt td:first-child { width: 96px; }
+  .tt .who { font-weight: 700; }
+  .tt .note { color: var(--muted); font-size: 13px; white-space: normal; }
+
+  .bat { display: grid; grid-template-columns: 62px 1fr 126px; align-items: center; gap: 10px;
+    padding: 7px 0; border-top: 1px solid var(--line); font-size: 15px; }
+  .bat:first-of-type { border-top: 0; }
+  .track { position: relative; height: 12px; background: var(--panel-2); border-radius: 6px; overflow: hidden; }
+  .used { position: absolute; top: 0; bottom: 0; background: rgba(76,141,255,0.28); }
+  .left { position: absolute; top: 0; bottom: 0; left: 0; background: var(--blue); border-radius: 6px 0 0 6px; }
+  .left.low { background: var(--red); }
+  .bat .num { font-size: 13px; color: var(--muted); text-align: right; white-space: nowrap; }
+  .bat .num b { color: var(--ink); }
+  .legend { display: flex; gap: 16px; font-size: 13px; color: var(--muted); margin-top: 10px; }
+  .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -2px; margin-right: 5px; }
+</style>
+</head>
+<body>
+<div id="card">
+  <h1>How dronyDeliv works</h1>
+  <p class="sub" id="sub"></p>
+
+  <div class="step"><span class="n">1</span><h2>Two files go in</h2><span class="hint">the fleet as it is now, and the new orders</span></div>
+  <div class="two">
+    <div class="panel"><h3>Drone fleet <span class="file">drones…txt</span></h3>
+      <table><thead><tr><th>Drone</th><th>Based in</th><th>Lifts up to</th><th>Reaches</th><th>Battery</th></tr></thead><tbody id="drones"></tbody></table>
+    </div>
+    <div class="panel"><h3>New orders <span class="file">parcels…txt</span></h3>
+      <table><thead><tr><th>Customer</th><th>In</th><th>Ordered</th><th>Distance</th><th>Parcel</th></tr></thead><tbody id="orders"></tbody></table>
+    </div>
+  </div>
+
+  <div class="step"><span class="n">2</span><h2>It picks a drone for each order</h2><span class="hint">checking orders one by one, in the order they arrived</span></div>
+  <div class="rules">
+    <div class="rule">Same city<small>as the customer</small></div><span class="arrow">→</span>
+    <div class="rule">Can lift it<small>parcel weight</small></div><span class="arrow">→</span>
+    <div class="rule">Can reach it<small>delivery distance</small></div><span class="arrow">→</span>
+    <div class="rule">Battery for the<br>round trip<small>there and back</small></div><span class="arrow">→</span>
+    <div class="rule pick">Free soonest wins<small>ties: most battery left</small></div>
+  </div>
+  <div class="rules-note" id="rules-note"></div>
+
+  <div class="step"><span class="n">3</span><h2>Two files come out</h2><span class="hint">the flight plan, and the fleet ready for the next batch</span></div>
+  <div class="two out">
+    <div class="panel"><h3>Delivery timetable <span class="file">timetable…txt</span></h3>
+      <table class="tt"><tbody id="timetable"></tbody></table>
+    </div>
+    <div class="panel"><h3>Updated fleet <span class="file">drones…txt</span></h3>
+      <div id="fleet"></div>
+      <div class="legend"><span><i class="sw" style="background:var(--blue)"></i>battery left</span><span><i class="sw" style="background:rgba(76,141,255,0.28)"></i>used this batch</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const D = window.DATA;
+  const $ = (id) => document.getElementById(id);
+  const row = (cells) => `<tr>${cells.map(([v, c]) => `<td class="${c || ""}">${v}</td>`).join("")}</tr>`;
+
+  $("sub").textContent =
+    `A worked example: ${D.company} flies parcels by drone in three cities. ` +
+    `On ${D.date} it gives dronyDeliv its fleet and ${D.orders.length} new orders, and gets back a flight plan.`;
+
+  $("drones").innerHTML = D.drones.map((d) =>
+    row([[d.name, "b"], [d.zone], [d.max_weight], [d.range], [`${d.battery_before} km`]])).join("");
+  $("orders").innerHTML = D.orders.map((o) =>
+    row([[o.client, "b"], [o.zone], [o.ordered], [o.distance], [o.weight]])).join("");
+
+  $("rules-note").innerHTML =
+    `<span>No drone passes every check? <b>The order is cancelled.</b></span>` +
+    `<span>Drones fly ${D.opening}–${D.closing}. <b>Too late to be back by ${D.closing}? It waits until morning.</b></span>`;
+
+  const lines = [];
+  for (const c of D.cancelled) {
+    lines.push(row([[`<span class="chip no">✕ Cancelled</span>`], [c.client, "who"],
+      [`<span class="note">${c.reason}</span>`]]));
+  }
+  for (const d of D.deliveries) {
+    const chip = d.next_day
+      ? `<span class="chip late">🌙 Next day</span>`
+      : `<span class="chip ok">✓ ${d.departs}</span>`;
+    const note = d.next_day
+      ? `drone <b>${d.drone}</b> leaves ${d.departs} next morning (ordered ${d.ordered})`
+      : `drone <b>${d.drone}</b>, back at ${d.back}`;
+    lines.push(row([[chip], [d.client, "who"], [`<span class="note">${note}</span>`]]));
+  }
+  $("timetable").innerHTML = lines.join("");
+
+  const MAX = Math.max(...D.drones.map((d) => d.battery_before));
+  $("fleet").innerHTML = D.drones.map((d) => {
+    const left = (d.battery_after / MAX) * 100;
+    const used = ((d.battery_before - d.battery_after) / MAX) * 100;
+    const low = d.battery_after < 5;
+    const when = d.free_again_day > 0 ? `next day ${d.free_again}` : d.free_again;
+    return `<div class="bat"><b>${d.name}</b>
+      <div class="track"><div class="left ${low ? "low" : ""}" style="width:${left}%"></div>
+        <div class="used" style="left:${left}%;width:${used}%"></div></div>
+      <div class="num"><b>${d.battery_after} km</b> left<br>free ${when}</div></div>`;
+  }).join("");
+</script>
+</body>
+</html>

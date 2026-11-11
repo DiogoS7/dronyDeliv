@@ -1,0 +1,101 @@
+<!doctype html>
+<!-- Source for docs/social-preview.png (1280x640): the README banner and the repo's
+     social preview. Regenerate: PYTHONPATH=src python scripts/render_images.py -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>dronyDeliv social preview</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  html, body { width: 1280px; height: 640px; overflow: hidden; }
+  #card {
+    width: 1280px; height: 640px; padding: 56px 72px;
+    display: flex; flex-direction: column; gap: 30px;
+    background:
+      radial-gradient(900px 500px at 92% -10%, rgba(76, 141, 255, 0.22), transparent 60%),
+      radial-gradient(700px 400px at -5% 110%, rgba(242, 180, 65, 0.10), transparent 60%),
+      var(--bg);
+  }
+  header { display: flex; align-items: center; gap: 26px; }
+  .mark { width: 88px; height: 88px; flex: none; }
+  .title { font-family: "Inter Display", "Inter", sans-serif; font-size: 84px; font-weight: 800;
+    letter-spacing: -2.5px; line-height: 1; }
+  .title span { color: var(--blue); }
+  .tagline { font-size: 29px; color: var(--muted); margin-top: 10px; letter-spacing: -0.2px; }
+
+  .panel2 { flex: 1; border-radius: 22px; background: var(--panel); border: 1px solid var(--line);
+    padding: 22px 30px; display: flex; flex-direction: column; gap: 10px; }
+  .flow { display: flex; align-items: center; gap: 14px; font-size: 20px; font-weight: 600; margin-bottom: 6px; }
+  .tag { font-size: 14px; font-weight: 800; letter-spacing: 1px; color: var(--blue-ink); background: var(--blue);
+    padding: 3px 9px; border-radius: 6px; }
+  .tag.out { background: var(--green); }
+  .flow .arr { color: var(--dim); }
+  .flow .res { margin-left: auto; font-size: 18px; color: var(--muted); font-weight: 500; }
+  .flow .res b { color: var(--ink); }
+  .row { display: grid; grid-template-columns: 150px 1fr 54px 0.42fr; align-items: center; height: 46px; }
+  .name { font-size: 20px; font-weight: 700; }
+  .name small { display: block; font-size: 13px; color: var(--muted); font-weight: 500; margin-top: -2px; }
+  .track { position: relative; height: 40px; background: var(--panel-2); border-radius: 10px; }
+  .gap { height: 46px; display: flex; justify-content: center; }
+  .gap::before { content: ""; border-left: 2px dashed var(--dim); height: 100%; }
+  .bar { position: absolute; top: 6px; height: 28px; border-radius: 7px; background: var(--blue);
+    color: var(--blue-ink); font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .bar.x { background: rgba(255,115,105,0.16); color: var(--red); padding: 0 12px; }
+  .hdr { display: grid; grid-template-columns: 150px 1fr 54px 0.42fr; font-size: 15px; font-weight: 700; color: var(--muted); }
+</style>
+</head>
+<body>
+<div id="card">
+  <header>
+    <svg class="mark" viewBox="0 0 92 92" aria-hidden="true">
+      <rect width="92" height="92" rx="22" fill="#4c8dff"/>
+      <path d="M30 30 L62 62 M62 30 L30 62" stroke="#06122b" stroke-width="5" stroke-linecap="round"/>
+      <g fill="#06122b"><circle cx="26" cy="26" r="11"/><circle cx="66" cy="26" r="11"/>
+        <circle cx="26" cy="66" r="11"/><circle cx="66" cy="66" r="11"/><rect x="36" y="36" width="20" height="20" rx="6"/></g>
+      <g fill="#4c8dff"><circle cx="26" cy="26" r="5"/><circle cx="66" cy="26" r="5"/>
+        <circle cx="26" cy="66" r="5"/><circle cx="66" cy="66" r="5"/></g>
+    </svg>
+    <div>
+      <div class="title">drony<span>Deliv</span></div>
+      <div class="tagline">Plans which drone delivers each parcel, and when</div>
+    </div>
+  </header>
+
+  <section class="panel2">
+    <div class="flow">
+      <span class="tag">IN</span><span id="in"></span><span class="arr">→</span>
+      <span class="tag out">OUT</span><span>a flight plan</span>
+      <span class="res" id="res"></span>
+    </div>
+    <div class="hdr"><div></div><div id="d0"></div><div></div><div>Next morning</div></div>
+    <div id="rows"></div>
+  </section>
+</div>
+<script>
+  const D = window.DATA;
+  document.getElementById("in").textContent = `${D.drones.length} drones + ${D.orders.length} orders`;
+  const late = D.deliveries.filter((d) => d.next_day).length;
+  document.getElementById("res").innerHTML =
+    `<b>${D.deliveries.length}</b> delivered (${late} next morning) · <b>${D.cancelled.length}</b> cancelled`;
+
+  // Day 0 window: first departure (floored) to last return (ceiled); day 1: opening + 1h.
+  const d0 = D.deliveries.filter((d) => d.day === 0);
+  const a0 = Math.floor(Math.min(...d0.map((d) => d.start_min)) / 60) * 60;
+  const b0 = Math.ceil(Math.max(...d0.map((d) => d.end_min)) / 60) * 60;
+  const a1 = D.opening_min, b1 = D.opening_min + 60;
+  const hh = (m) => `${String(m / 60).padStart(2, "0")}:00`;
+  document.getElementById("d0").textContent = `${D.date.split(" ")[0]} ${hh(a0)}–${hh(b0)}`;
+
+  const pct = (m, a, b) => ((m - a) / (b - a)) * 100;
+  document.getElementById("rows").innerHTML = D.drones.map((dr) => {
+    const bars = (day, a, b) => D.deliveries.filter((d) => d.drone === dr.name && d.day === day)
+      .map((d) => `<div class="bar" style="left:${pct(d.start_min, a, b)}%;width:${pct(d.end_min, a, b) - pct(d.start_min, a, b)}%">${d.client}</div>`).join("");
+    return `<div class="row"><div class="name">Drone ${dr.name}<small>${dr.zone}</small></div>
+      <div class="track">${bars(0, a0, b0)}</div><div class="gap"></div>
+      <div class="track">${bars(1, a1, b1)}</div></div>`;
+  }).join("") + D.cancelled.map((c) => `<div class="row"><div class="name">${c.zone}<small>no drones here</small></div>
+      <div class="track"><div class="bar x" style="left:${pct(Math.max(c.ordered_min, a0), a0, b0)}%">✕ ${c.client} cancelled</div></div>
+      <div class="gap"></div><div class="track"></div></div>`).join("");
+</script>
+</body>
+</html>
